@@ -2,7 +2,7 @@ body {
   background-color: #292929;
 }
 h1 {
-  color: white;
+  color: white !important;
 }
 font {
   color: #808080;
