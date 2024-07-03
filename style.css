@@ -1,5 +1,4 @@
 body { background-color: #292929 !important; color: white !important;}
 h1, body {color: white !important;}
-
-a, a:-webkit-any-link { color: #808080 !important;}
-a:visited { color: #ffa31a !important;}
+a, a:focus-visible, a:-webkit-any-link { color: #808080 !important;}
+a:visited, a:hover { color: #ffa31a !important;}
