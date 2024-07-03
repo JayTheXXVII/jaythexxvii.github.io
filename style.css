@@ -1,10 +1,4 @@
-body {
-  background-color: #292929;
-  color: white;
-}
-a:-webkit-any-link {
-    color: #808080;
-}
-a:visited {
-  color: #ffa31a;
-}
+body { background-color: #292929 !important; color: white !important;}
+h1 {color: white !important;}
+a:-webkit-any-link { color: #808080 !important;}
+a:visited { color: #ffa31a !important;}
