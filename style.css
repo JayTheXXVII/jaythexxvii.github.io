@@ -2,8 +2,8 @@ body {
   background-color: #292929;
   color: white;
 }
-font {
-  color: #808080;
+a:-webkit-any-link {
+    color: #808080;
 }
 a:visited {
   color: #ffa31a;
