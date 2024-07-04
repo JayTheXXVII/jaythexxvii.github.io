@@ -3,3 +3,5 @@ h1, body {color: white;}
 a:link {color: #808080;}
 a:hover {color: #ff8300 !important;}
 a:visited {color: #ffa31a;}
+h1 {text-align: center;}
+ul li {display: inline;}
