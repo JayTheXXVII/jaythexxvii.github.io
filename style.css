@@ -1,7 +1,7 @@
-body { background-color: #292929; color: white;}
+body { background-color: #292929; color: white; text-align: center;}
 h1 {text-align: center;}
 h1, body {color: white;}
-a:link {color: #808080;}
+a:link {color: #ffac30;}
 a:hover {color: #ff8300 !important;}
 a:visited {color: #ffa31a;}
 ul li {display: inline;}
