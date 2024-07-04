@@ -4,4 +4,4 @@ a:link {color: #808080;}
 a:hover {color: #ff8300 !important;}
 a:visited {color: #ffa31a;}
 ul li {display: inline;}
-ul {padding: 8px !important;}
+ul {padding: 8px !important; padding-top: 0px;}
