@@ -22,8 +22,10 @@ p1 {padding: 0% 15% 0% 0%;}
   background: #292929;
   margin-top: -18px;
 }
-
-
+.RevertX2-Header, .RTL-Header, .Metro-Header, .Discord-Icon-Header {
+  bottom: 80px;
+  position: relative;
+}
 .RevertX2-Git, .RTL-Git, .Metro-Git, .Discord-Icon-Git {
   background: url("https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/753438b8b003fb7d5ab7d66e7bf6ce0be57eae25/Assets/Github/github-mark-white.svg");
   background-repeat: no-repeat;
