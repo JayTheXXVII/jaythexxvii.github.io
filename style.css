@@ -18,7 +18,7 @@ p1 {padding: 0% 15% 0% 0%;}
   width: 50%;
 }
 
-.RevertX2-Nav {
+.RevertX2-Nav, .RTL-Nav, .Metro-Nav, .Discord-Icon-Nav {
   background: #292929;
   margin-top: -18px;
 }
