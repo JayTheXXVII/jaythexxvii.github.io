@@ -32,3 +32,10 @@ p1 {padding: 0% 15% 0% 0%;}
   background-position-x: 6px;
   width: 70%;
 }
+.RevertX2-Raw {
+  background: url("https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/753438b8b003fb7d5ab7d66e7bf6ce0be57eae25/Assets/Github/github-mark-white.svg");
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: left;
+  background-position-x: 6px;
+}
