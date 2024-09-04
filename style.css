@@ -1,5 +1,5 @@
-html, body {overflow-x: hidden;}
-body {display: inherit; background-color: #292929; color: white; text-align: center;}
+html, body /*{overflow-x: hidden;}*/
+body {display: inherit; background-color: #292929; color: white; text-align: center; overflow-x: hidden;}
 h1 {text-align: center;}
 h1, body {color: white;}
 h2 {padding: 0px 64px 0px 64px;}
