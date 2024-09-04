@@ -4,16 +4,15 @@
 
 .Home{ 
   display: flex;
-  width: 100vw;
-  height: 100vh;
   align-items: center;
   justify-content: center;
   margin: 0;
-  background: #131313;
   color: #fff;
   font-size: 96px;
   font-family: 'Fira Mono', monospace;
   letter-spacing: -7px;
+  float: none;
+  overflow-y: clip;
 }
 
 div{
