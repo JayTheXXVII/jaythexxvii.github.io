@@ -23,7 +23,7 @@ p1 {padding: 0% 15% 0% 0%;}
   margin-top: -18px;
 }
 .RevertX2-Header, .RTL-Header, .Metro-Header, .Discord-Icon-Header {
-  bottom: 80px;
+  bottom: 3.45em;
   position: relative;
   width: max-content;
   margin-left: auto;
