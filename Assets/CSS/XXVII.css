@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Fira+Mono:400');
 
 .XXVII{ 
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   margin: 0;
