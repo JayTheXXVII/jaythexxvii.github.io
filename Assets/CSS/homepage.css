@@ -6,7 +6,7 @@ body {
   min-height: 450px;
   height: 100vh;
   margin: 0;
-  background: radial-gradient(circle, #0077ea, #1f4f96, #1b2949, #000);
+  background: radial-gradient(circle, #ea0000, #961f1f, #491b1b, #000);
 }
 
 .stage {
@@ -34,7 +34,7 @@ body {
 
 .layer:after {
   font: 150px/0.65 "Pacifico", "Kaushan Script", Futura, "Roboto", "Trebuchet MS", Helvetica, sans-serif;
-  content: "Pure\a    css!";
+  content: "XXVII";
   white-space: pre;
   text-align: center;
   height: 100%;
@@ -131,12 +131,12 @@ body {
 }
 
 .layer:nth-child(n+11):after {
-  -webkit-text-stroke: 15px dodgerblue;
-  text-shadow: 6px 0 6px #00366b, 5px 5px 5px #002951, 0 6px 6px #00366b;
+  -webkit-text-stroke: 15px #ff1e1e;
+  text-shadow: 6px 0 6px #6b0000, 5px 5px 5px #002951, 0 6px 6px #6b0000;
 }
 
 .layer:nth-child(n+12):after {
-  -webkit-text-stroke: 15px #0077ea;
+  -webkit-text-stroke: 15px #ea0000;
 }
 
 .layer:last-child:after {
