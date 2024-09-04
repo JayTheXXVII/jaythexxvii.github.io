@@ -96,3 +96,13 @@ ul {
 .flyout-nav {
   background: #1b1b1b;
 }
+
+/* Logo -------------------- */
+.logo {
+  color: white;
+  font-size: 1.4em;
+  max-height: 80px;
+  margin-top: -58px;
+  scale: 0.2;
+  width: 10px;
+}
