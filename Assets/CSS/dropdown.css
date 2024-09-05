@@ -77,7 +77,7 @@ ul {
   display: block;
   position: absolute;
   top: 38%;
-  left: 12%;
+  right: 12%;
 }
 .drop-nav,
 .flyout-nav {
