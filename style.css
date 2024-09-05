@@ -23,8 +23,7 @@ p1 {padding: 0% 15% 0% 0%;}
   background-size: 15%;
   background-position: left;
   background-position-x: 6px;
-}
-.Git {
+  width: 120px;
   left: 10px;
   position: relative;
 }
@@ -46,6 +45,8 @@ p1 {padding: 0% 15% 0% 0%;}
   background-position: left;
   background-position-x: 6px;
   width: 70%;
+  left: 10px;
+  position: relative;
 }
 .RevertX2-Raw, .RTL-Raw, .Metro-Raw, .Discord-Icon-Raw {
   background: url("https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/753438b8b003fb7d5ab7d66e7bf6ce0be57eae25/Assets/Github/github-mark-white.svg");
