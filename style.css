@@ -24,7 +24,10 @@ p1 {padding: 0% 15% 0% 0%;}
   background-position: left;
   background-position-x: 6px;
 }
-
+.Git {
+  left: 10px;
+  position: relative;
+}
 .RevertX2-Nav, .RTL-Nav, .Metro-Nav, .Discord-Icon-Nav {
   background: #292929;
   margin-top: -18px;
