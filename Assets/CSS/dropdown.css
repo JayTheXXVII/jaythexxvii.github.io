@@ -51,6 +51,8 @@ ul {
   border-radius: 4px;
   margin-top: 8px;
   border: solid 1px #1e2a36;
+  z-index: 2;
+  position: relative;
 }
   .main-nav > li {
     float: left;
@@ -64,8 +66,6 @@ ul {
     display: block;
     padding: 10px 30px;
     text-decoration: none;
-	z-index: 2;
-	position: relative;
   }
 .dropdown,
 .flyout {
