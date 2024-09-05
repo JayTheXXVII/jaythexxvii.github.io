@@ -19,8 +19,6 @@
 
 .Glitch{
   animation: glitch 1.74s linear infinite;
-  top: -27px;
-  position: fixed;
 }
 
 @keyframes glitch{
