@@ -5,8 +5,8 @@
 .XXVII{ 
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 0;
+  justify-content: left;
+  margin: 0 70px;
   color: white;
   font-size: 96px;
   font-family: 'Fira Mono', monospace;
