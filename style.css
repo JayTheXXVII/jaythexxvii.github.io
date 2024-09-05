@@ -17,6 +17,13 @@ p1 {padding: 0% 15% 0% 0%;}
   margin-right: auto;
   width: 50%;
 }
+.Home {
+  background: url("https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/main/Assets/Github/Home.png");
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: left;
+  background-position-x: 6px;
+}
 
 .RevertX2-Nav, .RTL-Nav, .Metro-Nav, .Discord-Icon-Nav {
   background: #292929;
