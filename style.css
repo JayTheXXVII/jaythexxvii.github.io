@@ -56,7 +56,7 @@ p1 {padding: 0% 15% 0% 0%;}
   background-position-x: 6px;
 }
 
-.Discord-Icon-Git {
+.Discord-Icon-Git, .drop-nav li {
   text-wrap: nowrap !important;
   background-position-x: 0px !important;
 }
