@@ -21,6 +21,7 @@
   animation: glitch 1.74s linear infinite;
   top: -27px;
   position: absolute;
+  left: 100px;
 }
 
 @keyframes glitch{
