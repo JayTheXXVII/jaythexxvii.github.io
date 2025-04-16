@@ -79,4 +79,8 @@ p1 {padding: 0% 15% 0% 0%;}
    .navbar{
         padding: 10px 15px;
     }
-} 
+}
+
+
+/*unRefreshed*/
+.unRefreshed-logo, .unRefreshed-gif {max-width: 50%;}
