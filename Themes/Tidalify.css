@@ -1,0 +1,39 @@
+/*Tidalify - XXVII*/
+:root{
+    --wave-color-solid-base-brighter: rgb(0, 0, 0) !important;
+    --wave-color-solid-base-fill: rgb(18, 18, 18);
+    --wave-color-solid-base-bright: rgb(24, 24, 24);
+    --wave-color-solid-accent-bright: rgb(255, 102, 102);
+    --wave-color-solid-accent-brighter: rgb(255, 153, 153);
+    --wave-color-solid-accent-dark: rgb(143, 61, 61);
+    --wave-color-solid-accent-darker: rgb(66, 36, 36);
+    --wave-color-solid-accent-darkest: rgb(31, 20, 20);
+    --wave-color-solid-accent-fill: rgb(255, 1, 1);
+    --wave-color-material-dark: rgba(37, 37, 37, 0.502);
+    --wave-color-material-light: rgba(237, 237, 237, 0.2);
+    --wave-color-opacity-accent-dark-ultra-thick: rgba(143, 61, 61, 0.8);
+    --wave-color-opacity-accent-darkest-ultra-thick: rgb(31, 20, 20);
+    --wave-color-opacity-accent-fill-regular: rgba(254, 33, 33, 0.4);
+    --wave-color-opacity-accent-fill-thin: rgba(254, 33, 33, 0.2);
+    --wave-color-opacity-accent-fill-ultra-thick: rgba(254, 33, 33, 0.8);
+    --wave-color-opacity-accent-fill-ultra-thin: rgba(254, 33, 33, 0.102);
+}
+/*Main Nav*/
+._main_a5d9f44 {background-color: var(--wave-color-solid-base-fill) !important;}
+/*Left Navbar*/
+._sidebarWrapper_2f256ce {background: var(--wave-color-solid-base-brighter) !important;}
+/*Top Bar*/
+._bar_5b9ac59 {-webkit-app-region: drag; background-color: transparent !important; height: 30px;}
+._sidebarWrapper_2f256ce, ._contentArea_cf918f9, ._main_a5d9f44 {max-height: 105%; padding-top: 30px; margin-top: -30px;}
+._container_e9ecf79, ._searchAndLinks_2e32c39 {flex: 0; z-index: 1001 !important; app-region: no-drag;}
+/*Bottom Bar*/
+._player_1d16b04._notFullscreen_a82939e {background-color: var(--wave-color-solid-base-fill) !important;}
+/*Accent*/
+._favorite_dfc455f {color: var(--wave-color-solid-accent-fill);}
+/*Alignment*/
+/*Main Nav Background*/
+._topSpace_2dde0ca {height: 0px !important}
+/*Top Bar*/
+div#mainHeader, ._header_3fe665f {padding: 0px 24px 0; z-index: 1001 !important}
+._container_cb5cbe4 {height: 0px !important;}
+._searchAndLinks_2e32c39 {margin-inline-end: 9em;}
