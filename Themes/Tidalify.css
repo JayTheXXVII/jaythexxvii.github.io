@@ -35,6 +35,9 @@
 ._title_a453dad:after {content: 'IFY';}
 /*Bottom Bar*/
 ._player_1d16b04._notFullscreen_a82939e {background-color: var(--wave-color-solid-base-fill) !important;}
+[data-focusable] :focus-visible {outline: thin dotted var(--wave-color-solid-base-brightest);}
+/*Scrollbar*/
+.enable-scrollbar-styles ::-webkit-scrollbar-track {background: transparent;}
 /*Accent*/
 ._favorite_dfc455f {color: var(--wave-color-solid-accent-fill);}
 /*Alignment*/
