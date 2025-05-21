@@ -49,5 +49,5 @@ div#mainHeader, ._header_3fe665f {padding: 0px 24px 0; z-index: 1001 !important}
 ._searchAndLinks_2e32c39 {margin-inline-end: 9em;}
 /*Artist Page*/
 ._smallHeader_13d9f75, :is(.is-windows.is-desktop ._smallHeader_13d9f75):before, .is-windows.is-desktop ._smallHeader_f2c3791, :is(.is-windows.is-desktop ._smallHeader_f2c3791):before {top: 0px !important;}
-._defaultStyles_a1b9da9, ._defaultStyles_a1b9da9 {margin-bottom: 65px;}
+._defaultStyles_a1b9da9 {margin-bottom: 65px !important;}
 
