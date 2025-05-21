@@ -1,7 +1,7 @@
 {
-	"displayName": "Tidalify",
+	"name": "Tidalify",
 	"description": "Simple CSS to emulate Spotify",
-	"author": "JayTheXXVII"
+	"author": "@JayTheXXVII"
 }
 :root{
     --wave-color-solid-base-brighter: rgb(0, 0, 0) !important;
