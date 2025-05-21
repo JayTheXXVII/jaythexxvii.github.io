@@ -32,6 +32,7 @@
 ._bar_5b9ac59 {-webkit-app-region: drag; background-color: transparent !important; height: 30px;}
 ._sidebarWrapper_2f256ce, ._contentArea_cf918f9, ._main_a5d9f44 {max-height: 105%; padding-top: 30px; margin-top: -30px;}
 ._container_e9ecf79, ._searchAndLinks_2e32c39 {flex: 0; z-index: 1001 !important; app-region: no-drag;}
+._title_a453dad:after {content: 'IFY';}
 /*Bottom Bar*/
 ._player_1d16b04._notFullscreen_a82939e {background-color: var(--wave-color-solid-base-fill) !important;}
 /*Accent*/
