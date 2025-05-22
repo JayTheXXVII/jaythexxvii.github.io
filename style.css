@@ -27,7 +27,7 @@ p1 {padding: 0% 15% 0% 0%;}
   left: 10px;
   position: relative;
 }
-.RevertX2-Nav, .RTL-Nav, .Metro-Nav, .Discord-Icon-Nav, .unRefreshed-Nav {
+.RevertX2-Nav, .RTL-Nav, .Metro-Nav, .Discord-Icon-Nav, .unRefreshed-Nav, .Tidalify-Nav {
   background: #292929;
   margin-top: -18px;
 }
@@ -38,7 +38,7 @@ p1 {padding: 0% 15% 0% 0%;}
   margin-left: auto;
   margin-right: auto;
 }*/
-.RevertX2-Git, .RevertX2-Legacy-Git, .RTL-Git, .Metro-Git, .Discord-Icon-Git, .Git, .unRefreshed-Git {
+.RevertX2-Git, .RevertX2-Legacy-Git, .RTL-Git, .Metro-Git, .Discord-Icon-Git, .Git, .unRefreshed-Git, .Tidalify-Git {
   background: url("https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/753438b8b003fb7d5ab7d66e7bf6ce0be57eae25/Assets/Github/github-mark-white.svg");
   background-repeat: no-repeat;
   background-size: 20%;
@@ -48,7 +48,7 @@ p1 {padding: 0% 15% 0% 0%;}
   left: 10px;
   position: relative;
 }
-.RevertX2-Raw, .RTL-Raw, .Metro-Raw, .Discord-Icon-Raw, .unRefreshed-Raw {
+.RevertX2-Raw, .RTL-Raw, .Metro-Raw, .Discord-Icon-Raw, .unRefreshed-Raw, .Tidalify-Raw {
   background: url("https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/753438b8b003fb7d5ab7d66e7bf6ce0be57eae25/Assets/Github/github-mark-white.svg");
   background-repeat: no-repeat;
   background-size: 20%;
