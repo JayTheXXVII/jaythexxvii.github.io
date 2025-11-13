@@ -57,16 +57,16 @@ p1 {padding: 0% 15% 0% 0%;}
 }
 
 .Discord-Icon-Git, .drop-nav li {
-  text-wrap: nowrap !important;
   background-position-x: 0px !important;
 }
 
 .RevertX2-Legacy-Git {
-  text-wrap: nowrap;
   padding-left: 40px !important;
 }
 
-
+.RevertX2-Legacy-Git, .RevertX2-Test-Git, .Discord-Icon-Git, .drop-nav li {
+  text-wrap: nowrap !important;
+}
 
 
 
@@ -75,10 +75,7 @@ p1 {padding: 0% 15% 0% 0%;}
 
 
 @media(max-width:1023px){ 
-   /* your code will be here */
-   .navbar{
-        padding: 10px 15px;
-    }
+   .navbar{padding: 10px 15px;}
 }
 
 
