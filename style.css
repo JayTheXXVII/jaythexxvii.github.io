@@ -4,12 +4,11 @@ h1 {text-align: center;}
 h1, body {color: white;}
 h2 {padding: 0px 64px 0px 64px;}
 a:link {color: #ffac30;}
-a:hover {color: #ff8300 !important;}
-a:visited {color: #ffa31a;}
+a:hover {color: white !important;}
+a:visited {color: #ff1a1a;}
 ul {padding: 0px 32px 0px 32px !important; text-align: center; background-color: #1b1b1b;}
 ul li {display: inline;}
 p1 {padding: 0% 15% 0% 0%;}
-
 
 .center {
   display: block;
@@ -68,16 +67,15 @@ p1 {padding: 0% 15% 0% 0%;}
   text-wrap: nowrap !important;
 }
 
-
-
-
-
-
-
 @media(max-width:1023px){ 
    .navbar{padding: 10px 15px;}
 }
 
-
 /*unRefreshed*/
 .unRefreshed-logo, .unRefreshed-gif {max-width: 50%;}
+
+/*Domains*/
+body, .link-item, #domain-links-output {background: #292929;}
+nav {background: #3a3a3a;}
+#domain-links-output {list-style-type: none;}
+.link-extractor-box {display: none;}
