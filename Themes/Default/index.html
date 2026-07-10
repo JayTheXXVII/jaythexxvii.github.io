@@ -48,57 +48,81 @@
     </li>
   </ul>
 </header>
+<style>
+html, body /*{overflow-x: hidden;}*/
+body {display: inherit; background-color: #292929; color: white; text-align: center; overflow-x: hidden;}
+h1 {text-align: center;}
+h1, body {color: white;}
+h2 {padding: 0px 64px 0px 64px;}
+a:link {color: #ffac30;}
+a:hover {color: white !important;}
+a:visited {color: #ff1a1a;}
+ul {padding: 0px 32px 0px 32px !important; text-align: center; background-color: #1b1b1b;}
+ul li {display: inline;}
+p1 {padding: 0% 15% 0% 0%;}
 
-<body>
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.Home-Button {
+  background: url("https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/main/Assets/Github/Home.png");
+  background-repeat: no-repeat;
+  background-size: 15%;
+  background-position: left;
+  background-position-x: 6px;
+  width: 120px;
+  left: 10px;
+  position: relative;
+}
+.RevertX3-Nav, .RevertX2-Nav, .RTL-Nav, .Metro-Nav, .Discord-Icon-Nav, .unRefreshed-Nav, .Tidalify-Nav {
+  background: #292929;
+  margin-top: -18px;
+}
+/*.RevertX3-Header, .RevertX2-Header, .RTL-Header, .Metro-Header, .Discord-Icon-Header {
+  bottom: 3.45em;
+  position: relative;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+}*/
+.RevertX3-Git, .RevertX2-Git, .RevertX2-Legacy-Git, .RevertX2-Test-Git, .RTL-Git, .Metro-Git, .Discord-Icon-Git, .Git, .unRefreshed-Git, .Tidalify-Git {
+  background: url("https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/753438b8b003fb7d5ab7d66e7bf6ce0be57eae25/Assets/Github/github-mark-white.svg");
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: left;
+  background-position-x: 6px;
+  width: 70%;
+  left: 10px;
+  position: relative;
+}
+.RevertX3-Raw, .RevertX2-Raw, .RTL-Raw, .Metro-Raw, .Discord-Icon-Raw, .unRefreshed-Raw, .Tidalify-Raw {
+  background: url("https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/753438b8b003fb7d5ab7d66e7bf6ce0be57eae25/Assets/Github/github-mark-white.svg");
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: left;
+  background-position-x: 6px;
+}
 
-<!-- Example website links for testing -->
-    <nav>
-        <a href="https://searx.xxvii.org">SearXNG</a> |
-        <a href="https://ai.xxvii.org">Open Web UI</a> |
-        <a href="https://copyparty.xxvii.org">Copyparty</a> |
-        <a href="https://www.xxvii.org">Homepage</a> |
-    </nav>
+.Discord-Icon-Git, .drop-nav li {
+  background-position-x: 0px !important;
+}
 
-    <!-- HTML Container where domain links will be listed -->
-    <div class="link-extractor-box">
-        <h3>Internal Domain Links Found:</h3>
-        <ol id="domain-links-output" class="link-list">
-            <!-- JavaScript will insert the <li> links here -->
-        </ol>
-    </div>
+.RevertX2-Legacy-Git {
+  padding-left: 40px !important;
+}
 
-    <!-- JavaScript Snippet -->
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // 1. Define the target domain you want to filter
-            const targetDomain = "xxvii.org"; 
-            
-            // 2. Grab all 'a' tags on the webpage
-            const allLinks = document.querySelectorAll("a");
-            const outputList = document.getElementById("domain-links-output");
-            
-            // 3. Loop through links, filter, and append to the HTML container
-            allLinks.forEach(link => {
-                const hrefValue = link.href;
-                
-                // Check if the link contains your specific domain
-                if (hrefValue.includes(targetDomain)) {
-                    // Create an individual list item element
-                    const listItem = document.createElement("li");
-                    listItem.className = "link-item";
-                    
-                    // Create a clickable anchor element
-                    const anchor = document.createElement("a");
-                    anchor.href = hrefValue;
-                    anchor.textContent = hrefValue;
-                    anchor.target = "_blank"; // Opens in a new tab
-                    
-                    // Construct the final HTML structure
-                    listItem.appendChild(anchor);
-                    outputList.appendChild(listItem);
-                }
-            });
-        });
-    </script>
+.RevertX2-Legacy-Git, .RevertX2-Test-Git, .Discord-Icon-Git, .drop-nav li {
+  text-wrap: nowrap !important;
+}
 
-</body>
+@media(max-width:1023px){ 
+   .navbar{padding: 10px 15px;}
+}
+
+/*unRefreshed*/
+.unRefreshed-logo, .unRefreshed-gif {max-width: 50%;}
+
+</style>
