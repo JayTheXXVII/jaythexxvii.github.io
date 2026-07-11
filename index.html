@@ -145,9 +145,35 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 
+<!-- Nav Logic -->
+<script>
+	const slider = document.querySelector('nav');
+	let isDown = false;
+	let startX;
+	let scrollLeft;
 
+	slider.addEventListener('mousedown', (e) => {
+	  isDown = true;
+	  startX = e.pageX - slider.offsetLeft;
+	  scrollLeft = slider.scrollLeft;
+	});
 
+	slider.addEventListener('mouseleave', () => {
+	  isDown = false;
+	});
 
+	slider.addEventListener('mouseup', () => {
+	  isDown = false;
+	});
+
+	slider.addEventListener('mousemove', (e) => {
+	  if (!isDown) return; // Stop the function from running if not clicked
+	  e.preventDefault();
+	  const x = e.pageX - slider.offsetLeft;
+	  const walk = (x - startX) * 2; // Multiply by 2 to scroll faster
+	  slider.scrollLeft = scrollLeft - walk;
+	});
+</script>
 
     <!-- Check for Cloudflare Server Outage -->
     <div id="cloudflare-status">Cloudflare Status: Checking...</div>
@@ -309,17 +335,38 @@ document.addEventListener("DOMContentLoaded", () => {
             margin-bottom: 2rem;
         }*/
 		
-		nav {
-			  background: hwb(0 19.6% 0% / 0.3);
-			  border-radius: 16px;
-			  box-shadow: 0 4px 30px hwb(0 0% 0% / 0.1);
-			  backdrop-filter: blur(2.7px);
-			  -webkit-backdrop-filter: blur(2.7px);
-			  border: 1px solid hwb(0 70% 80.4% / 0.27);
-			  padding: 1rem 2rem;
-			  margin-bottom: 2rem;
-			  text-align: center;
-		}
+nav {
+  background: hwb(0 19.6% 0% / 0.3);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px hwb(0 0% 0% / 0.1);
+  backdrop-filter: blur(2.7px);
+  -webkit-backdrop-filter: blur(2.7px);
+  border: 1px solid hwb(0 70% 80.4% / 0.27);
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  
+  /* Added for drag experience */
+  cursor: grab;
+  user-select: none; 
+  -webkit-user-select: none;
+
+  /* Hide scrollbars */
+  &::-webkit-scrollbar { display: none; }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+nav:active {
+  cursor: grabbing; /* Changes cursor while holding click */
+}
+		
+		
+		
 		
         nav a {
             color: white; /*#2c3e50;*/
