@@ -102,6 +102,87 @@
 </div>
 
 <script>
+// Individual function for SearXNG using its standalone Favicon
+function checkSearxStatus(url, dotElement) {
+    const imgCheck = new Image();
+    const separator = url.endsWith('/') ? '' : '/';
+    imgCheck.src = url + separator + 'favicon.ico?t=' + Date.now();
+
+    const timeoutId = setTimeout(() => {
+        imgCheck.src = "";
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+    }, 5000);
+
+    imgCheck.onload = () => {
+        clearTimeout(timeoutId);
+        dotElement.classList.add("online");
+        dotElement.classList.remove("offline");
+    };
+
+    imgCheck.onerror = () => {
+        clearTimeout(timeoutId);
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+    };
+}
+
+// Individual function for Open WebUI (AI) using core icon validation
+function checkAiStatus(url, dotElement) {
+    const imgCheck = new Image();
+    const separator = url.endsWith('/') ? '' : '/';
+    imgCheck.src = url + separator + 'static/favicon.png?t=' + Date.now();
+
+    const timeoutId = setTimeout(() => {
+        imgCheck.src = "";
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+    }, 5000);
+
+    imgCheck.onload = () => {
+        clearTimeout(timeoutId);
+        dotElement.classList.add("online");
+        dotElement.classList.remove("offline");
+    };
+
+    imgCheck.onerror = () => {
+        clearTimeout(timeoutId);
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+    };
+}
+
+// Individual function for Copyparty using your verified HEAD request approach
+function checkCopypartyStatus(url, dotElement) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+        controller.abort();
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+    }, 5000);
+
+    const separator = url.endsWith('/') ? '' : '/';
+    const cacheBusterUrl = url + separator + '?t=' + Date.now();
+
+    fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
+        .then((response) => {
+            clearTimeout(timeoutId);
+            if (response.ok) {
+                dotElement.classList.add("online");
+                dotElement.classList.remove("offline");
+            } else {
+                dotElement.classList.add("offline");
+                dotElement.classList.remove("online");
+            }
+        })
+        .catch((err) => {
+            clearTimeout(timeoutId);
+            console.log(`${url} is unreachable:`, err);
+            dotElement.classList.add("offline");
+            dotElement.classList.remove("online");
+        });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const targetDomain = "xxvii.org"; 
     const allLinks = document.querySelectorAll("a");
@@ -112,37 +193,54 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Filter links that belong to your domain group
         if (hrefValue.includes(targetDomain)) {
-            const listItem = document.createElement("li");
-            listItem.className = "link-item";
             
-            // Create the initial gray dot element
-            const dot = document.createElement("span");
-            dot.className = "status-dot";
+            try {
+                const urlObj = new URL(hrefValue);
+                const hostname = urlObj.hostname;
 
-            const anchor = document.createElement("a");
-            anchor.href = hrefValue;
-            anchor.textContent = hrefValue;
-            anchor.target = "_blank";
+                // Hide the main root domain homepage from the output list completely
+                if (hostname === targetDomain && (urlObj.pathname === "/" || urlObj.pathname === "")) {
+                    return; // Skip appending
+                }
 
-            // Append dot first so it appears to the left of the URL
-            listItem.appendChild(dot);
-            listItem.appendChild(anchor);
-            outputList.appendChild(listItem);
+                const listItem = document.createElement("li");
+                listItem.className = "link-item";
+                
+                // Create the initial gray dot element
+                const dot = document.createElement("span");
+                dot.className = "status-dot";
 
-            // Ping the link to verify if it is findable
-            fetch(hrefValue, { method: 'HEAD', mode: 'no-cors' })
-                .then(() => {
-                    // Turn dot green and add glow if server responds
-                    dot.classList.add("online");
-                })
-                .catch((err) => {
-                    console.log(`${hrefValue} is unreachable:`, err);
-                    // Keep it gray or handle offline state implicitly
-                });
+                const anchor = document.createElement("a");
+                anchor.href = hrefValue;
+                anchor.textContent = hrefValue;
+                anchor.target = "_blank";
+
+                // Append dot first so it appears to the left of the URL
+                listItem.appendChild(dot);
+                listItem.appendChild(anchor);
+                outputList.appendChild(listItem);
+
+                // Run specific isolated status checkers matching individual subdomains
+                if (hostname === 'searx.xxvii.org') {
+                    checkSearxStatus(hrefValue, dot);
+                } else if (hostname === 'ai.xxvii.org') {
+                    checkAiStatus(hrefValue, dot);
+                } else if (hostname === 'copyparty.xxvii.org') {
+                    checkCopypartyStatus(hrefValue, dot);
+                } else {
+                    // Fallback configuration for any other subdomains
+                    checkCopypartyStatus(hrefValue, dot); 
+                }
+                
+            } catch (e) {
+                // Skips any non-http anchors (like tel:, mailto:, or anchor hashes)
+            }
         }
     });
 });
 </script>
+
+
 
 
 <!-- Nav Logic -->
