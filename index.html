@@ -179,29 +179,36 @@ function checkSearxStatus(url, dotElement) {
     };
 }
 
-// Individual function for Open WebUI (AI) using core icon validation
+// Individual function for Open WebUI using HEAD request approach
 function checkAiStatus(url, dotElement) {
-    const imgCheck = new Image();
-    const separator = url.endsWith('/') ? '' : '/';
-    imgCheck.src = url + separator + 'static/favicon.png?t=' + Date.now();
+    const controller = new AbortController();
 
     const timeoutId = setTimeout(() => {
-        imgCheck.src = "";
+        controller.abort();
         dotElement.classList.add("offline");
         dotElement.classList.remove("online");
     }, 5000);
 
-    imgCheck.onload = () => {
-        clearTimeout(timeoutId);
-        dotElement.classList.add("online");
-        dotElement.classList.remove("offline");
-    };
+    const separator = url.endsWith('/') ? '' : '/';
+    const cacheBusterUrl = url + separator + '?t=' + Date.now();
 
-    imgCheck.onerror = () => {
-        clearTimeout(timeoutId);
-        dotElement.classList.add("offline");
-        dotElement.classList.remove("online");
-    };
+    fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
+        .then((response) => {
+            clearTimeout(timeoutId);
+            if (response.ok) {
+                dotElement.classList.add("online");
+                dotElement.classList.remove("offline");
+            } else {
+                dotElement.classList.add("offline");
+                dotElement.classList.remove("online");
+            }
+        })
+        .catch((err) => {
+            clearTimeout(timeoutId);
+            console.log(`${url} is unreachable:`, err);
+            dotElement.classList.add("offline");
+            dotElement.classList.remove("online");
+        });
 }
 
 // Individual function for Copyparty using your verified HEAD request approach
