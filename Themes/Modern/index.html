@@ -4,7 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XXVII</title>
-    <style>
+    </head>
+<body>
+    <header class="main-header">
+        <div class="header-container">
+            <a class="logo" href="https://jaythexxvii.github.io/">  
+                <img src="https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/main/Assets/Monkey.png" alt="XXVII"> 
+            </a>
+            <div class="XXVII">
+                <div class="Glitch" title="XXVII">XXVII</div>
+            </div>
+            <ul class="main-nav">
+                <!-- <li><a class="Home-Button" href="https://jaythexxvii.github.io">Home</a></li> -->
+                <li class="dropdown">
+                    <a href="#">Menu</a>
+                    <ul class="drop-nav">
+                        <li><a href="https://jaythexxvii.github.io/RevertX3">RevertX3</a></li>
+                        <li><a href="https://jaythexxvii.github.io/RevertX2">RevertX2</a></li>
+                        <li><a href="https://jaythexxvii.github.io/RevertX2-Legacy">RevertX2-Legacy</a></li>
+                        <li><a href="https://jaythexxvii.github.io/RevertX2-Test">RevertX2-Test</a></li>
+                        <li><a href="https://jaythexxvii.github.io/RTL">RTL</a></li>
+                        <li><a href="https://jaythexxvii.github.io/Red-Metro-For-Steam/">Red Metro</a></li>  
+                        <li><a href="https://jaythexxvii.github.io/Discord-old-icons/">Discord Old Icons</a></li>
+                        <li><a href="https://jaythexxvii.github.io/unRefreshed/">unRefreshed</a></li>
+                        <li><a href="https://jaythexxvii.github.io/Tidalify/">Tidalify</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <!-- Example website links for testing -->
+        <nav>
+			<a href="https://xxvii.org">Homepage</a> |
+			<a href="https://jaythexxvii.github.io">Github</a> |
+            <a href="https://searx.xxvii.org">SearXNG</a> |
+            <a href="https://ai.xxvii.org">Open Web UI</a> |
+            <a href="https://copyparty.xxvii.org">Copyparty</a>
+        </nav>
+
+
+
+
+        <!-- HTML Container where domain links will be listed -->
+        <div class="link-extractor-box">
+            <h3>Internal Domain Links Found:</h3>
+            <ol id="domain-links-output" class="link-list">
+                <!-- JavaScript will insert the <li> links here -->
+            </ol>
+        </div>
+
+        <!-- JavaScript Snippet -->
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                // 1. Define the target domain you want to filter
+                const targetDomain = "xxvii.org"; 
+                
+                // 2. Grab all 'a' tags on the webpage
+                const allLinks = document.querySelectorAll("a");
+                const outputList = document.getElementById("domain-links-output");
+                
+                // 3. Loop through links, filter, and append to the HTML container
+                allLinks.forEach(link => {
+                    const hrefValue = link.href;
+                    
+                    // Check if the link contains your specific domain
+                    if (hrefValue.includes(targetDomain)) {
+                        // Create an individual list item element
+                        const listItem = document.createElement("li");
+                        listItem.className = "link-item";
+                        
+                        // Create a clickable anchor element
+                        const anchor = document.createElement("a");
+                        anchor.href = hrefValue;
+                        anchor.textContent = hrefValue;
+                        anchor.target = "_blank"; // Opens in a new tab
+                        
+                        // Construct the final HTML structure
+                        listItem.appendChild(anchor);
+                        outputList.appendChild(listItem);
+                    }
+                });
+            });
+        </script>
+    </div>
+</body>
+<style>
         /* Base styles */
         * {
             margin: 0;
@@ -15,8 +101,16 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+            color: white;
+			background-color: #292929;
+			 margin: 0;
+  min-height: 100vh;
+
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: center;
         }
 
         /* Header and navigation */
@@ -123,16 +217,28 @@
             padding: 0 2rem;
         }
 
-        nav {
+        /*nav {
             background-color: #fff;
             padding: 1rem 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
-        }
-
+        }*/
+		
+		nav {
+			  background: hwb(0 19.6% 0% / 0.3);
+			  border-radius: 16px;
+			  box-shadow: 0 4px 30px hwb(0 0% 0% / 0.1);
+			  backdrop-filter: blur(2.7px);
+			  -webkit-backdrop-filter: blur(2.7px);
+			  border: 1px solid hwb(0 70% 80.4% / 0.27);
+			  padding: 1rem 2rem;
+			  margin-bottom: 2rem;
+			  text-align: center;
+		}
+		
         nav a {
-            color: #2c3e50;
+            color: white; /*#2c3e50;*/
             text-decoration: none;
             margin-right: 1rem;
             padding: 0.5rem 1rem;
@@ -146,16 +252,27 @@
         }
 
         /* Link extractor box */
-        .link-extractor-box {
+        /*.link-extractor-box {
             background-color: #fff;
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin-bottom: 2rem;
-        }
-
+        }*/
+		
+		.link-extractor-box {
+		  background: hwb(0 19.6% 0% / 0.3);
+		  border-radius: 16px;
+		  box-shadow: 0 4px 30px hwb(0 0% 0% / 0.1);
+		  backdrop-filter: blur(2.7px);
+		  -webkit-backdrop-filter: blur(2.7px);
+		  border: 1px solid hwb(0 70% 80.4% / 0.27);
+		  padding: 1rem 2rem;
+		  margin-bottom: 2rem;
+		}
+		
         .link-extractor-box h3 {
-            color: #ad1f1f;
+            color: white; /*#ad1f1f;*/
             margin-bottom: 1rem;
             border-bottom: 2px solid #db3434;
             padding-bottom: 0.5rem;
@@ -167,7 +284,7 @@
 
         .link-item {
             padding: 0.8rem 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #db3434; /*#eee*/
         }
 
         .link-item:last-child {
@@ -175,7 +292,7 @@
         }
 
         .link-item a {
-            color: #db3434;
+            color: white; /*#db3434;*/
             text-decoration: none;
             transition: all 0.3s ease;
             display: block;
@@ -209,7 +326,7 @@
                 visibility: visible;
                 transform: none;
                 box-shadow: none;
-                background-color: #34495e;
+                background-color: #292929;/*#34495e;*/
                 max-height: 0;
                 overflow: hidden;
                 transition: max-height 0.3s ease;
@@ -302,88 +419,22 @@
             80% { transform: translate(3px, -3px); }
             100% { transform: translate(0); }
         }*/
+		
+		
+		
+	
+@media (min-width: 0px) and (max-width: 795px) {
+	nav {
+	  display: inherit;
+	}
+	nav a {
+	  margin-right: 0.5rem !important;
+	  padding: 5px;
+	  word-break: keep-all;
+	  text-wrap: nowrap;
+	}
+}
+
+
     </style>
-</head>
-<body>
-    <header class="main-header">
-        <div class="header-container">
-            <a class="logo" href="https://jaythexxvii.github.io/">  
-                <img src="https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/main/Assets/Monkey.png" alt="XXVII"> 
-            </a>
-            <div class="XXVII">
-                <div class="Glitch" title="XXVII">XXVII</div>
-            </div>
-            <ul class="main-nav">
-                <li><a class="Home-Button" href="https://jaythexxvii.github.io">Home</a></li>
-                <li class="dropdown">
-                    <a href="#">CSS</a>
-                    <ul class="drop-nav">
-                        <li><a href="https://jaythexxvii.github.io/RevertX3">RevertX3</a></li>
-                        <li><a href="https://jaythexxvii.github.io/RevertX2">RevertX2</a></li>
-                        <li><a href="https://jaythexxvii.github.io/RevertX2-Legacy">RevertX2-Legacy</a></li>
-                        <li><a href="https://jaythexxvii.github.io/RevertX2-Test">RevertX2-Test</a></li>
-                        <li><a href="https://jaythexxvii.github.io/RTL">RTL</a></li>
-                        <li><a href="https://jaythexxvii.github.io/Red-Metro-For-Steam/">Red Metro</a></li>  
-                        <li><a href="https://jaythexxvii.github.io/Discord-old-icons/">Discord Old Icons</a></li>
-                        <li><a href="https://jaythexxvii.github.io/unRefreshed/">unRefreshed</a></li>
-                        <li><a href="https://jaythexxvii.github.io/Tidalify/">Tidalify</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </header>
-
-    <div class="main-content">
-        <!-- Example website links for testing -->
-        <nav>
-			<a href="https://xxvii.org">Homepage</a> |
-            <a href="https://searx.xxvii.org">SearXNG</a> |
-            <a href="https://ai.xxvii.org">Open Web UI</a> |
-            <a href="https://copyparty.xxvii.org">Copyparty</a> |
-			<a href="https://jaythexxvii.github.io">Github</a> |
-        </nav>
-
-        <!-- HTML Container where domain links will be listed -->
-        <div class="link-extractor-box">
-            <h3>Internal Domain Links Found:</h3>
-            <ol id="domain-links-output" class="link-list">
-                <!-- JavaScript will insert the <li> links here -->
-            </ol>
-        </div>
-
-        <!-- JavaScript Snippet -->
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                // 1. Define the target domain you want to filter
-                const targetDomain = "xxvii.org"; 
-                
-                // 2. Grab all 'a' tags on the webpage
-                const allLinks = document.querySelectorAll("a");
-                const outputList = document.getElementById("domain-links-output");
-                
-                // 3. Loop through links, filter, and append to the HTML container
-                allLinks.forEach(link => {
-                    const hrefValue = link.href;
-                    
-                    // Check if the link contains your specific domain
-                    if (hrefValue.includes(targetDomain)) {
-                        // Create an individual list item element
-                        const listItem = document.createElement("li");
-                        listItem.className = "link-item";
-                        
-                        // Create a clickable anchor element
-                        const anchor = document.createElement("a");
-                        anchor.href = hrefValue;
-                        anchor.textContent = hrefValue;
-                        anchor.target = "_blank"; // Opens in a new tab
-                        
-                        // Construct the final HTML structure
-                        listItem.appendChild(anchor);
-                        outputList.appendChild(listItem);
-                    }
-                });
-            });
-        </script>
-    </div>
-</body>
 </html>
