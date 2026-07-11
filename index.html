@@ -34,62 +34,146 @@
         </div>
     </header>
 
-    <div class="main-content">
-        <!-- Example website links for testing -->
-        <nav>
-			<a href="https://xxvii.org">Homepage</a> |
-			<a href="https://jaythexxvii.github.io">Github</a> |
-            <a href="https://searx.xxvii.org">SearXNG</a> |
-            <a href="https://ai.xxvii.org">Open Web UI</a> |
-            <a href="https://copyparty.xxvii.org">Copyparty</a>
-        </nav>
+<div class="main-content">
+<!-- website links -->
+<nav>
+    <a href="https://xxvii.org">Homepage</a> |
+    <a href="https://github.io">Github</a> |
+    <a href="https://searx.xxvii.org">SearXNG</a> |
+    <a href="https://ai.xxvii.org">Open Web UI</a> |
+    <a href="https://copyparty.xxvii.org">Copyparty</a>
+</nav>
 
+<style>
+    .link-extractor-box {
+        font-family: sans-serif;
+        margin-top: 20px;
+    }
+    .link-list {
+        padding-left: 20px;
+    }
+    .link-item {
+        margin: 5px 0;
+    }
+</style>
 
+<style>
+  .link-extractor-box {
+    font-family: sans-serif;
+    margin-top: 20px;
+  }
+  .link-list {
+    padding-left: 20px;
+  }
+  .link-item {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* Glowing Dot Styling */
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #888; /* Gray by default while checking */
+    display: inline-block;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Green Glowing State when Online */
+  .status-dot.online {
+    background-color: #2ecb71;
+    box-shadow: 0 0 8px #2ecb71, 0 0 15px rgba(46, 203, 113, 0.6);
+    animation: pulse-glow 2s infinite alternate;
+  }
 
+  @keyframes pulse-glow {
+    0% { box-shadow: 0 0 6px #2ecb71, 0 0 10px rgba(46, 203, 113, 0.4); }
+    100% { box-shadow: 0 0 12px #2ecb71, 0 0 20px rgba(46, 203, 113, 0.8); }
+  }
+</style>
 
-        <!-- HTML Container where domain links will be listed -->
-        <div class="link-extractor-box">
-            <h3>Internal Domain Links Found:</h3>
-            <ol id="domain-links-output" class="link-list">
-                <!-- JavaScript will insert the <li> links here -->
-            </ol>
-        </div>
+<div class="link-extractor-box">
+    <h3>Internal Domain Links Found:</h3>
+    <ol id="domain-links-output" class="link-list">
+    </ol>
+</div>
 
-        <!-- JavaScript Snippet -->
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                // 1. Define the target domain you want to filter
-                const targetDomain = "xxvii.org"; 
-                
-                // 2. Grab all 'a' tags on the webpage
-                const allLinks = document.querySelectorAll("a");
-                const outputList = document.getElementById("domain-links-output");
-                
-                // 3. Loop through links, filter, and append to the HTML container
-                allLinks.forEach(link => {
-                    const hrefValue = link.href;
-                    
-                    // Check if the link contains your specific domain
-                    if (hrefValue.includes(targetDomain)) {
-                        // Create an individual list item element
-                        const listItem = document.createElement("li");
-                        listItem.className = "link-item";
-                        
-                        // Create a clickable anchor element
-                        const anchor = document.createElement("a");
-                        anchor.href = hrefValue;
-                        anchor.textContent = hrefValue;
-                        anchor.target = "_blank"; // Opens in a new tab
-                        
-                        // Construct the final HTML structure
-                        listItem.appendChild(anchor);
-                        outputList.appendChild(listItem);
-                    }
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const targetDomain = "xxvii.org"; 
+    const allLinks = document.querySelectorAll("a");
+    const outputList = document.getElementById("domain-links-output");
+
+    allLinks.forEach(link => {
+        const hrefValue = link.href;
+        
+        // Filter links that belong to your domain group
+        if (hrefValue.includes(targetDomain)) {
+            const listItem = document.createElement("li");
+            listItem.className = "link-item";
+            
+            // Create the initial gray dot element
+            const dot = document.createElement("span");
+            dot.className = "status-dot";
+
+            const anchor = document.createElement("a");
+            anchor.href = hrefValue;
+            anchor.textContent = hrefValue;
+            anchor.target = "_blank";
+
+            // Append dot first so it appears to the left of the URL
+            listItem.appendChild(dot);
+            listItem.appendChild(anchor);
+            outputList.appendChild(listItem);
+
+            // Ping the link to verify if it is findable
+            fetch(hrefValue, { method: 'HEAD', mode: 'no-cors' })
+                .then(() => {
+                    // Turn dot green and add glow if server responds
+                    dot.classList.add("online");
+                })
+                .catch((err) => {
+                    console.log(`${hrefValue} is unreachable:`, err);
+                    // Keep it gray or handle offline state implicitly
                 });
-            });
-        </script>
-    </div>
-</body>
+        }
+    });
+});
+</script>
+
+
+
+
+
+
+    <!-- Check for Cloudflare Server Outage -->
+    <div id="cloudflare-status">Cloudflare Status: Checking...</div>
+    <script>
+    async function checkCloudflareStatus() {
+      const statusEl = document.getElementById('cloudflare-status');
+      try {
+        const response = await fetch('https://www.cloudflarestatus.com/api/v2/summary.json');
+        const data = await response.json();
+        
+        const indicator = data.status.indicator;
+        const description = data.status.description;
+
+        if (indicator === 'none') {
+          statusEl.innerHTML = `Cloudflare Status: <span style="color: green;">All Systems Operational</span>`;
+        } else {
+          statusEl.innerHTML = `Cloudflare Status: <a href="https://www.cloudflarestatus.com/" style="color: orange;">${description}</a>`;
+        }
+      } catch (error) {
+        statusEl.innerHTML = `Cloudflare Status: <span style="color: red;">Failed to load</span>`;
+      }
+    }
+    checkCloudflareStatus();
+    </script>
+</div>
+
 <style>
         /* Base styles */
         * {
@@ -176,7 +260,7 @@
             position: absolute;
             top: 100%;
             left: 0;
-            background-color: #2c3e50;
+            background-color: #292929;#2c3e50;
             min-width: 200px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             list-style: none;
