@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 const urlObj = new URL(hrefValue);
                 const hostname = urlObj.hostname;
 
+                // Ignore the ai.xxvii.org subdomain entirely
+                if (hostname === 'ai.xxvii.org') {
+                    return;
+                }
+
                 // Hide the main root domain homepage from the output list completely
                 if (hostname === targetDomain && (urlObj.pathname === "/" || urlObj.pathname === "")) {
                     return; // Skip appending
@@ -38,8 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 // Run specific isolated status checkers matching individual subdomains
                 if (hostname === 'searx.xxvii.org') {
                     checkSearxStatus(hrefValue, dot);
-                } else if (hostname === 'ai.xxvii.org') {
-                    checkAiStatus(hrefValue, dot);
                 } else if (hostname === 'copyparty.xxvii.org') {
                     checkCopypartyStatus(hrefValue, dot);
                 } else {
