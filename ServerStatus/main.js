@@ -23,7 +23,7 @@ function checkSearxStatus(url, dotElement) {
     };
 }
 
-// Individual function for Open WebUI using HEAD request approach
+// Individual function for Open WebUI using GET request approach
 function checkAiStatus(url, dotElement) {
     const controller = new AbortController();
 
@@ -36,7 +36,7 @@ function checkAiStatus(url, dotElement) {
     const separator = url.endsWith('/') ? '' : '/';
     const cacheBusterUrl = url + separator + '?t=' + Date.now();
 
-    fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
+    fetch(cacheBusterUrl, { method: 'GET', signal: controller.signal })
         .then((response) => {
             clearTimeout(timeoutId);
             if (response.ok) {
