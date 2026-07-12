@@ -1,4 +1,4 @@
-// Function for status check with dependent status logic
+// Individual function for Open WebUI using HEAD request approach with navigator.onLine check
 function checkAiStatus(url, dotElement) {
     // Quick preliminary check using navigator.onLine
     if (!navigator.onLine) {
@@ -24,15 +24,6 @@ function checkAiStatus(url, dotElement) {
             if (response.ok) {
                 dotElement.classList.add("online");
                 dotElement.classList.remove("offline");
-
-                // If copyparty is online, force AI status to go online too
-                if (url.includes("copyparty.xxvii.org")) {
-                    const aiDot = document.querySelector('[data-status-url*="ai.xxvii.org"]');
-                    if (aiDot) {
-                        aiDot.classList.add("online");
-                        aiDot.classList.remove("offline");
-                    }
-                }
             } else {
                 dotElement.classList.add("offline");
                 dotElement.classList.remove("online");
