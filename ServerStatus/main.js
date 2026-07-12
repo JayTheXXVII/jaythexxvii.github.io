@@ -23,8 +23,16 @@ function checkSearxStatus(url, dotElement) {
     };
 }
 
-// Individual function for Open WebUI using GET request approach
+// Individual function for Open WebUI using HEAD request approach with navigator.onLine check
 function checkAiStatus(url, dotElement) {
+    // Quick preliminary check using navigator.onLine
+    if (!navigator.onLine) {
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+        return;
+    }
+
+    // Only proceed with status check - don't prevent execution entirely
     const controller = new AbortController();
 
     const timeoutId = setTimeout(() => {
@@ -36,7 +44,7 @@ function checkAiStatus(url, dotElement) {
     const separator = url.endsWith('/') ? '' : '/';
     const cacheBusterUrl = url + separator + '?t=' + Date.now();
 
-    fetch(cacheBusterUrl, { method: 'GET', signal: controller.signal })
+    fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
         .then((response) => {
             clearTimeout(timeoutId);
             if (response.ok) {
@@ -57,6 +65,7 @@ function checkAiStatus(url, dotElement) {
 
 // Individual function for Copyparty using HEAD request approach
 function checkCopypartyStatus(url, dotElement) {
+    // Only proceed with status check - don't prevent execution entirely
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
         controller.abort();
@@ -86,10 +95,29 @@ function checkCopypartyStatus(url, dotElement) {
         });
 }
 
+// Main execution logic
 document.addEventListener("DOMContentLoaded", () => {
+    // Check if we're in an Open WebUI context that might cause self-sending issues
+    const currentPath = window.location.pathname;
+    const isInOpenWebUI = currentPath.includes('/chat/') || 
+                         currentPath.includes('/webui/') || 
+                         currentPath.includes('/openwebui/');
+    
+    // If we detect Open WebUI, we still want to proceed with list generation
+    // but log a warning
+    if (isInOpenWebUI) {
+        console.log('Status checker script running in Open WebUI context - proceeding with list generation');
+    }
+
     const targetDomain = "xxvii.org"; 
     const allLinks = document.querySelectorAll("a");
     const outputList = document.getElementById("domain-links-output");
+
+    // Only proceed if we have a valid output list element
+    if (!outputList) {
+        console.log('Status checker script: No output list found');
+        return;
+    }
 
     allLinks.forEach(link => {
         const hrefValue = link.href;
