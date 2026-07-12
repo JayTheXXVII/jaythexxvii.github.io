@@ -1,5 +1,5 @@
 // Individual function for Open WebUI using HEAD request approach with navigator.onLine check
-function checkcopypartyStatus(url, dotElement) {
+function checkAiStatus(url, dotElement) {
     // Quick preliminary check using navigator.onLine
     if (!navigator.onLine) {
         dotElement.classList.add("offline");
