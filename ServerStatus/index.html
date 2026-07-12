@@ -33,10 +33,37 @@
             </ul>
         </div>
     </header>
-<script src="./main.js"></script>
-<script src="./openwebui.js"></script>
-<script src="./Copyparty.js"></script>
-<script src="./searxng.js"></script>
+<script>
+const scriptSources = [
+    "./main.js",
+    "./openwebui.js",
+    "./Copyparty.js",
+    "./searxng.js"
+];
+
+function doRefreshFunction() {
+    // 1. Prevent the link from redirecting the browser page
+    if (window.event) window.event.preventDefault();
+
+    // 2. Query for any currently injected script tags matching our sources
+    const existingScripts = document.querySelectorAll('script[data-toggle="server-status"]');
+
+    if (existingScripts.length > 0) {
+        // Scripts exist -> REMOVE them (Toggle Off)
+        existingScripts.forEach(script => script.remove());
+        console.log("Scripts removed.");
+    } else {
+        // Scripts do not exist -> CREATE and APPEND them (Toggle On)
+        scriptSources.forEach(src => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.setAttribute("data-toggle", "server-status"); // Custom identifier to track them
+            document.body.appendChild(script);
+        });
+        console.log("Scripts injected and executing.");
+    }
+}
+</script>
 <div class="main-content">
 <!-- website links -->
 <nav>
