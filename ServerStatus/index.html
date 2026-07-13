@@ -68,11 +68,17 @@ frame.addEventListener("load", ev => {
 
 
 <style>
-	.copyparty_monitor, .searx_monitor, .ai_monitor {max-width: 800px; width: -webkit-fill-available; box-shadow: 0 4px 30px hwb(0 0% 100% / 0.47);}
-	.monitors {inline-size: 800px; border: 10px solid hsl(225, 7.1%, 13%); border-radius: 5px; background: #1f2024; box-shadow: 0 4px 30px hsla(0, 0%, 0%, 1);}
-	.monitors_master { display: inline-flex; margin: 10px;}
+	.copyparty_monitor, .searx_monitor, .ai_monitor {box-shadow: 0 4px 30px hwb(0 0% 100% / 0.3);}
+	.copyparty_monitor, .searx_monitor, .ai_monitor {max-width: 800px; width: -webkit-fill-available;}
+	.monitors {inline-size: 800px; border: 10px solid hsl(225, 7.1%, 13%); background: #1f2024; box-shadow: 0 4px 10px black; max-width: -moz-available;}
+	.monitors_master {width: -webkit-fill-available; display: inline-flex; margin: 10px;}
 	.list_monitor {display: list-item; list-style: none;}
-	@media (min-width: 0px) and (max-width: 795px) {.monitors_master {width: -webkit-fill-available; nav, .monitors, .list_monitor {width: inherit;}}}
+	@media (min-width: 0px) and (max-width: 795px) {.monitors_master {width: -webkit-fill-available;} .nav, .monitors, .list_monitor {max-width: -moz-available;}}
+	.monitors_master {width: -webkit-fill-available;}
+	.nav, .monitors, .list_monitor {margin-left: 2px; max-width: -moz-available; width: -webkit-fill-available;}
+	.monitors:has(.copyparty_monitor) {border-radius: 5px 5px 0px 0px !important;}
+	.monitors:has(.ai_monitor) {border-radius: 0px !important;}
+	.monitors:has(.searx_monitor) {border-radius: 0px 0px 20px 20px !important;}
 </style>
 
 <!-- Nav Logic -->
@@ -306,7 +312,7 @@ frame.addEventListener("load", ev => {
 
         /* Main content */
         .main-content {
-            max-width: 1200px;
+            max-width: fit-content;
             margin: 2rem auto;
             padding: 0 2rem;
         }
@@ -338,7 +344,7 @@ frame.addEventListener("load", ev => {
 		  cursor: grab;
 		  user-select: none; 
 		  -webkit-user-select: none;
-		  width: fit-content;
+
 		  /* Hide scrollbars */
 		  &::-webkit-scrollbar { display: none; }
 		  -ms-overflow-style: none;
@@ -356,7 +362,7 @@ frame.addEventListener("load", ev => {
             color: white; /*#2c3e50;*/
             text-decoration: none;
             margin-right: 1rem;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 2rem;
             border-radius: 4px;
             transition: all 0.3s ease;
 			padding-left: inherit;
