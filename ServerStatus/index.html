@@ -33,17 +33,47 @@
             </ul>
         </div>
     </header>
+<div class="main-content">
+<!-- website links -->
 <nav>
     <a href="https://xxvii.org">Homepage</a>
     <a href="https://github.com/JayTheXXVII">Github</a>
     <a href="https://searx.xxvii.org">SearXNG</a>
     <a href="https://ai.xxvii.org">Open Web UI</a>
     <a href="https://copyparty.xxvii.org">Copyparty</a>
-	<a href="https://servers.xxvii.org/">Server Status</a>
+	<a href="https://jaythexxvii.github.io/ServerStatus">Server Status</a>
 </nav>
-<iframe src="https://servers.xxvii.org/#copyparty_monitor" height="225px" display="block" position="relative" frameborder="0"></iframe>
-<iframe src="https://servers.xxvii.org/#ai_monitor" height="225px" display="block" position="relative" frameborder="0"></iframe>
-<iframe src="https://servers.xxvii.org/#searx_monitor"height="225px" display="block" position="relative" frameborder="0"></iframe>
+
+<nav class="monitors_master">
+	<ul class="list_monitor">
+	<div class="monitors">
+		<li><iframe class="copyparty_monitor" src="https://servers.xxvii.org/#copyparty_monitor" height="225px" position="relative" frameborder="0"></iframe></li>
+	</div>
+	<div class="monitors">
+		<li><iframe class="ai_monitor" src="https://servers.xxvii.org/#ai_monitor" height="225px" position="relative" frameborder="0"></iframe></li>
+	</div>
+	<div class="monitors">
+		<li><iframe class="searx_monitor" src="https://servers.xxvii.org/#searx_monitor"height="225px" position="relative" frameborder="0"></iframe></li>
+	</div>
+	</ul>
+</nav>
+
+<script>
+frame.addEventListener("load", ev => {
+    const new_style_element = document.createElement("style");
+    new_style_element.textContent = ".my-class {background-color: transparent;}"
+    ev.target.contentDocument.head.appendChild(new_style_element);
+});
+</script>
+
+
+<style>
+	.copyparty_monitor, .searx_monitor, .ai_monitor {max-width: 800px; width: -webkit-fill-available; box-shadow: 0 4px 30px hwb(0 0% 100% / 0.47);}
+	.monitors {inline-size: 800px; border: 10px solid hsl(225, 7.1%, 13%); border-radius: 5px; background: #1f2024; box-shadow: 0 4px 30px hsla(0, 0%, 0%, 1);}
+	.monitors_master { display: inline-flex; margin: 10px;}
+	.list_monitor {display: list-item; list-style: none;}
+	@media (min-width: 0px) and (max-width: 795px) {.monitors_master {width: -webkit-fill-available; nav, .monitors, .list_monitor {width: inherit;}}}
+</style>
 
 <!-- Nav Logic -->
 <script>
@@ -98,7 +128,10 @@
     }
     checkCloudflareStatus();
     </script>
-	
+
+
+
+
 <style>
     .link-extractor-box {
         font-family: sans-serif;
@@ -149,11 +182,6 @@
     100% { box-shadow: 0 0 12px #2ecb71, 0 0 20px rgba(46, 203, 113, 0.8); }
   }
 </style>
-
-
-
-
-
 </div>
 
 <style>
@@ -310,7 +338,7 @@
 		  cursor: grab;
 		  user-select: none; 
 		  -webkit-user-select: none;
-
+		  width: fit-content;
 		  /* Hide scrollbars */
 		  &::-webkit-scrollbar { display: none; }
 		  -ms-overflow-style: none;
@@ -514,6 +542,7 @@
 @media (min-width: 0px) and (max-width: 795px) {
 	nav {
 	  display: inherit;
+	  width: inherit;
 	}
 	nav a {
 	  margin-right: 0.5rem !important;
