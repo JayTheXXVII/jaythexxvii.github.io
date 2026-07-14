@@ -139,16 +139,23 @@ frame.addEventListener("load", ev => {
 
 
 <style>
-    .link-extractor-box {
-        font-family: sans-serif;
-        margin-top: 20px;
-    }
-    .link-list {
-        padding-left: 20px;
-    }
-    .link-item {
-        margin: 5px 0;
-    }
+@media (prefers-color-scheme: light) {
+  body {color: black !important; background-color: hsl(0, 0%, 100%) !important;}
+  .drop-nav a {color: black !important; background: white !important;}
+  .dropdown a:hover {border-radius: 0px !important;}
+  .drop-nav a:hover {background-color: #fffc !important;}
+  nav, .link-extractor-box {background: #990000b2 !important;}
+  .monitors {border: 10px solid white; background: white; box-shadow: 0 4px 10px white;}
+  .copyparty_monitor, .searx_monitor, .ai_monitor {box-shadow: 0 4px 30px hwb(0 100% 0% / 0.3);}
+}
+</style>
+
+
+<style>
+    .link-extractor-box {font-family: sans-serif; margin-top: 20px;}
+    .link-list {padding-left: 20px;}
+    .link-item {margin: 5px 0;}
+	/*.link-extractor-box {background: #ff00004d !important;}*/
 </style>
 
 <style>
