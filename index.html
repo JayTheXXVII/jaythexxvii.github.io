@@ -9,11 +9,11 @@
     <header class="main-header">
         <div class="header-container">
             <a class="logo" href="https://jaythexxvii.github.io/">  
-                <img src="https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/main/Assets/Monkey.png" alt="XXVII"> 
+                <img src="https://raw.githubusercontent.com/JayTheXXVII/jaythexxvii.github.io/main/Assets/Monkey.png" alt="XXVII">
             </a>
-            <div class="XXVII">
-                <div class="Glitch" title="XXVII">XXVII</div>
-            </div>
+        <div class="XXVII">
+            <div class="Glitch" title="XXVII">XXVII</div>
+        </div>
             <ul class="main-nav">
                 <!-- <li><a class="Home-Button" href="https://jaythexxvii.github.io">Home</a></li> -->
                 <li class="dropdown">
@@ -22,12 +22,9 @@
                         <li><a href="https://jaythexxvii.github.io/RevertX3">RevertX3</a></li>
                         <li><a href="https://jaythexxvii.github.io/RevertX2">RevertX2</a></li>
                         <li><a href="https://jaythexxvii.github.io/RevertX2-Legacy">RevertX2-Legacy</a></li>
-                        <li><a href="https://jaythexxvii.github.io/RevertX2-Test">RevertX2-Test</a></li>
                         <li><a href="https://jaythexxvii.github.io/RTL">RTL</a></li>
                         <li><a href="https://jaythexxvii.github.io/Red-Metro-For-Steam/">Red Metro</a></li>  
-                        <li><a href="https://jaythexxvii.github.io/Discord-old-icons/">Discord Old Icons</a></li>
                         <li><a href="https://jaythexxvii.github.io/unRefreshed/">unRefreshed</a></li>
-                        <li><a href="https://jaythexxvii.github.io/Tidalify/">Tidalify</a></li>
                         <li><a href="https://jaythexxvii.github.io/copyparty-client/">Copyparty-Client</a></li>
                     </ul>
                 </li>
@@ -44,14 +41,14 @@
     <a href="https://copyparty.xxvii.org">Copyparty</a>
 	<a href="https://jaythexxvii.github.io/ServerStatus">Server Status</a>
 </nav>
-<script>
-const isDarkMode = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-console.log(isDarkMode()); // true or false
-</script>
+    <script>
+        const isDarkMode = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        console.log(isDarkMode()); // true or false
+    </script>
 
 
 <!-- Nav Logic -->
-<script>
+    <script>
 	const slider = document.querySelector('nav');
 	let isDown = false;
 	let startX;
@@ -78,181 +75,163 @@ console.log(isDarkMode()); // true or false
 	  const walk = (x - startX) * 2; // Multiply by 2 to scroll faster
 	  slider.scrollLeft = scrollLeft - walk;
 	});
-</script>
-<div class="link-extractor-box">
-    <h3>Internal Domain Links:</h3>
-    <ol id="domain-links-output" class="link-list">
-    </ol>
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const targetDomain = "xxvii.org"; 
-    const allLinks = document.querySelectorAll("a");
-    const outputList = document.getElementById("domain-links-output");
+    </script>
+    <div class="link-extractor-box">
+        <h3>Internal Domain Links:</h3>
+        <ol id="domain-links-output" class="link-list"></ol>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const targetDomain = "xxvii.org";
+        const allLinks = document.querySelectorAll("a");
+        const outputList = document.getElementById("domain-links-output");
 
-    allLinks.forEach(link => {
-        const hrefValue = link.href;
-        
-        // Filter links that belong to your domain group
-        if (hrefValue.includes(targetDomain)) {
-            
-            try {
-                const urlObj = new URL(hrefValue);
-                const hostname = urlObj.hostname;
+        allLinks.forEach(link => {
+            const hrefValue = link.href;
 
-                //// Ignore the ai.xxvii.org subdomain entirely
-                //if (hostname === 'ai.xxvii.org') {
-                //    return;
-                //}
+            // Filter links that belong to your domain group
+            if (hrefValue.includes(targetDomain)) {
 
-                // Hide the main root domain homepage from the output list completely
-                if (hostname === targetDomain && (urlObj.pathname === "/" || urlObj.pathname === "")) {
-                    return; // Skip appending
+                try {
+                    const urlObj = new URL(hrefValue);
+                    const hostname = urlObj.hostname;
+
+                    //// Ignore the ai.xxvii.org subdomain entirely
+                    //if (hostname === 'ai.xxvii.org') {
+                    //    return;
+                    //}
+
+                    // Hide the main root domain homepage from the output list completely
+                    if (hostname === targetDomain && (urlObj.pathname === "/" || urlObj.pathname === "")) {
+                        return; // Skip appending
+                    }
+
+                    const listItem = document.createElement("li");
+                    listItem.className = "link-item";
+
+                    // Create the initial gray dot element
+                    const dot = document.createElement("span");
+                    dot.className = "status-dot";
+
+                    const anchor = document.createElement("a");
+                    anchor.href = hrefValue;
+                    anchor.textContent = hrefValue;
+                    anchor.target = "_blank";
+
+                    // Append dot first so it appears to the left of the URL
+                    listItem.appendChild(dot);
+                    listItem.appendChild(anchor);
+                    outputList.appendChild(listItem);
+
+                    // Run specific isolated status checkers matching individual subdomains
+                    if (hostname === 'searx.xxvii.org') {
+                        checkSearxStatus(hrefValue, dot);
+                    } else if (hostname === 'copyparty.xxvii.org') {
+                        checkCopypartyStatus(hrefValue, dot);
+                    } else {
+                        // Fallback configuration for any other subdomains
+                        checkCopypartyStatus(hrefValue, dot);
+                    }
+
+                } catch (e) {
+                    // Skips any non-http anchors (like tel:, mailto:, or anchor hashes)
                 }
-
-                const listItem = document.createElement("li");
-                listItem.className = "link-item";
-                
-                // Create the initial gray dot element
-                const dot = document.createElement("span");
-                dot.className = "status-dot";
-
-                const anchor = document.createElement("a");
-                anchor.href = hrefValue;
-                anchor.textContent = hrefValue;
-                anchor.target = "_blank";
-
-                // Append dot first so it appears to the left of the URL
-                listItem.appendChild(dot);
-                listItem.appendChild(anchor);
-                outputList.appendChild(listItem);
-
-                // Run specific isolated status checkers matching individual subdomains
-                if (hostname === 'searx.xxvii.org') {
-                    checkSearxStatus(hrefValue, dot);
-                } else if (hostname === 'copyparty.xxvii.org') {
-                    checkCopypartyStatus(hrefValue, dot);
-                } else {
-                    // Fallback configuration for any other subdomains
-                    checkCopypartyStatus(hrefValue, dot); 
-                }
-                
-            } catch (e) {
-                // Skips any non-http anchors (like tel:, mailto:, or anchor hashes)
             }
-        }
+        });
     });
-});
-// Individual function for Copyparty using HEAD request approach
-function checkCopypartyStatus(url, dotElement) {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => {
-        controller.abort();
-        dotElement.classList.add("offline");
-        dotElement.classList.remove("online");
-    }, 5000);
-
-    const separator = url.endsWith('/') ? '' : '/';
-    const cacheBusterUrl = url + separator + '?t=' + Date.now();
-
-    fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
-        .then((response) => {
-            clearTimeout(timeoutId);
-            if (response.ok) {
-                dotElement.classList.add("online");
-                dotElement.classList.remove("offline");
-            } else {
-                dotElement.classList.add("offline");
-                dotElement.classList.remove("online");
-            }
-        })
-        .catch((err) => {
-            clearTimeout(timeoutId);
-            console.log(`${url} is unreachable:`, err);
+    // Individual function for Copyparty using HEAD request approach
+    function checkCopypartyStatus(url, dotElement) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => {
+            controller.abort();
             dotElement.classList.add("offline");
             dotElement.classList.remove("online");
-        });
-}
-// Individual function for Open WebUI using HEAD request approach with navigator.onLine check
-function checkAiStatus(url, dotElement) {
-    // Quick preliminary check using navigator.onLine
-    if (!navigator.onLine) {
-        dotElement.classList.add("offline");
-        dotElement.classList.remove("online");
-        return;
+        }, 5000);
+
+        const separator = url.endsWith('/') ? '' : '/';
+        const cacheBusterUrl = url + separator + '?t=' + Date.now();
+
+        fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
+            .then((response) => {
+                clearTimeout(timeoutId);
+                if (response.ok) {
+                    dotElement.classList.add("online");
+                    dotElement.classList.remove("offline");
+                } else {
+                    dotElement.classList.add("offline");
+                    dotElement.classList.remove("online");
+                }
+            })
+            .catch((err) => {
+                clearTimeout(timeoutId);
+                console.log(`${url} is unreachable:`, err);
+                dotElement.classList.add("offline");
+                dotElement.classList.remove("online");
+            });
     }
-
-    const controller = new AbortController();
-
-    const timeoutId = setTimeout(() => {
-        controller.abort();
-        dotElement.classList.add("offline");
-        dotElement.classList.remove("online");
-    }, 5000);
-
-    const separator = url.endsWith('/') ? '' : '/';
-    const cacheBusterUrl = url + separator + '?t=' + Date.now();
-
-    fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
-        .then((response) => {
-            clearTimeout(timeoutId);
-            if (response.ok) {
-                dotElement.classList.add("online");
-                dotElement.classList.remove("offline");
-            } else {
-                dotElement.classList.add("offline");
-                dotElement.classList.remove("online");
-            }
-        })
-        .catch((err) => {
-            clearTimeout(timeoutId);
-            console.log(`${url} is unreachable:`, err);
+    // Individual function for Open WebUI using HEAD request approach with navigator.onLine check
+    function checkAiStatus(url, dotElement) {
+        // Quick preliminary check using navigator.onLine
+        if (!navigator.onLine) {
             dotElement.classList.add("offline");
             dotElement.classList.remove("online");
-        });
-}
-// Individual function for SearXNG using its standalone Favicon
-function checkSearxStatus(url, dotElement) {
-    const imgCheck = new Image();
-    const separator = url.endsWith('/') ? '' : '/';
-    imgCheck.src = url + separator + 'favicon.ico?t=' + Date.now();
+            return;
+        }
 
-    const timeoutId = setTimeout(() => {
-        imgCheck.src = "";
-        dotElement.classList.add("offline");
-        dotElement.classList.remove("online");
-    }, 5000);
+        const controller = new AbortController();
 
-    imgCheck.onload = () => {
-        clearTimeout(timeoutId);
-        dotElement.classList.add("online");
-        dotElement.classList.remove("offline");
-    };
+        const timeoutId = setTimeout(() => {
+            controller.abort();
+            dotElement.classList.add("offline");
+            dotElement.classList.remove("online");
+        }, 5000);
 
-    imgCheck.onerror = () => {
-        clearTimeout(timeoutId);
-        dotElement.classList.add("offline");
-        dotElement.classList.remove("online");
-    };
-}
-</script>
+        const separator = url.endsWith('/') ? '' : '/';
+        const cacheBusterUrl = url + separator + '?t=' + Date.now();
 
+        fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
+            .then((response) => {
+                clearTimeout(timeoutId);
+                if (response.ok) {
+                    dotElement.classList.add("online");
+                    dotElement.classList.remove("offline");
+                } else {
+                    dotElement.classList.add("offline");
+                    dotElement.classList.remove("online");
+                }
+            })
+            .catch((err) => {
+                clearTimeout(timeoutId);
+                console.log(`${url} is unreachable:`, err);
+                dotElement.classList.add("offline");
+                dotElement.classList.remove("online");
+            });
+    }
+    // Individual function for SearXNG using its standalone Favicon
+    function checkSearxStatus(url, dotElement) {
+        const imgCheck = new Image();
+        const separator = url.endsWith('/') ? '' : '/';
+        imgCheck.src = url + separator + 'favicon.ico?t=' + Date.now();
 
+        const timeoutId = setTimeout(() => {
+            imgCheck.src = "";
+            dotElement.classList.add("offline");
+            dotElement.classList.remove("online");
+        }, 5000);
 
+        imgCheck.onload = () => {
+            clearTimeout(timeoutId);
+            dotElement.classList.add("online");
+            dotElement.classList.remove("offline");
+        };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        imgCheck.onerror = () => {
+            clearTimeout(timeoutId);
+            dotElement.classList.add("offline");
+            dotElement.classList.remove("online");
+        };
+    }
+    </script>
 
     <!-- Check for Cloudflare Server Outage -->
     <div id="cloudflare-status">Cloudflare Status: Checking...</div>
@@ -278,64 +257,114 @@ function checkSearxStatus(url, dotElement) {
     checkCloudflareStatus();
     </script>
 
-<style>
-@media (prefers-color-scheme: light) {
-  body {color: black !important; background-color: hsl(0, 0%, 100%) !important;}
-  .drop-nav a {color: black !important; background: white !important;}
-  .dropdown a:hover {border-radius: 0px !important;}
-  .drop-nav a:hover {background-color: #fffc !important;}
-  nav, .link-extractor-box {background: #990000b2 !important;}
-}
-</style>
 
-
-<style>
-    .link-extractor-box {font-family: sans-serif; margin-top: 20px;}
-    .link-list {padding-left: 20px;}
-    .link-item {margin: 5px 0;}
-	.link-extractor-box {background: #ff00004d;}
-</style>
-
-<style>
-  .link-extractor-box {
-    font-family: sans-serif;
-    margin-top: 20px;
-  }
-  .link-list {
-    padding-left: 20px;
-  }
-  .link-item {
-    margin: 8px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  /* Glowing Dot Styling */
-  .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #888; /* Gray by default while checking */
-    display: inline-block;
-    transition: background-color 0.3s, box-shadow 0.3s;
-  }
-  
-  /* Green Glowing State when Online */
-  .status-dot.online {
-    background-color: #2ecb71;
-    box-shadow: 0 0 8px #2ecb71, 0 0 15px rgba(46, 203, 113, 0.6);
-    animation: pulse-glow 2s infinite alternate;
-  }
-
-  @keyframes pulse-glow {
-    0% { box-shadow: 0 0 6px #2ecb71, 0 0 10px rgba(46, 203, 113, 0.4); }
-    100% { box-shadow: 0 0 12px #2ecb71, 0 0 20px rgba(46, 203, 113, 0.8); }
-  }
-</style>
+<script>
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('ip-address').textContent = data.ip;
+        })
+        .catch(error => {
+            document.getElementById('ip-address').textContent = 'Unable to load IP';
+        });
+</script>
+    <span class="display-time" id="display-time"></span> <span class="ip-address" id="ip-address">Loading...</span>
+    <div class="XXVII-Bottom" >
+        Made By XXVII
+    </div>
 </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateDateTime() {
+                const now = new Date();
+                const dateTimeString = now.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
 
-<style>
+                // Update the element with class "display-time"
+                const elements = document.querySelectorAll('.display-time');
+                elements.forEach(function(element) {
+                    element.textContent = dateTimeString;
+                });
+            }
+
+            // Update immediately
+            updateDateTime();
+
+            // Update every second
+            setInterval(updateDateTime, 1000);
+        });
+    </script>
+    <style>
+        @media (prefers-color-scheme: light) {
+            body {color: black !important; background-color: hsl(0, 0%, 100%) !important;}
+            .drop-nav a {color: black !important; background: white !important;}
+            .dropdown a:hover {border-radius: 0px !important;}
+            .drop-nav a:hover {background-color: #fffc !important;}
+            nav, .link-extractor-box {background: #990000b2 !important;}
+            #ip-address, .XXVII-Bottom {color: black !important;}
+        }
+
+        .link-extractor-box {font-family: sans-serif; margin-top: 20px;}
+        .link-list {padding-left: 20px;}
+        .link-item {margin: 5px 0;}
+        .link-extractor-box {background: #ff00004d;}
+
+        .link-extractor-box {
+            font-family: sans-serif;
+            margin-top: 20px;
+        }
+        .link-list {
+            padding-left: 20px;
+        }
+        .link-item {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Glowing Dot Styling */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #888; /* Gray by default while checking */
+            display: inline-block;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        /* Green Glowing State when Online */
+        .status-dot.online {
+            background-color: #2ecb71;
+            box-shadow: 0 0 8px #2ecb71, 0 0 15px rgba(46, 203, 113, 0.6);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 6px #2ecb71, 0 0 10px rgba(46, 203, 113, 0.4); }
+            100% { box-shadow: 0 0 12px #2ecb71, 0 0 20px rgba(46, 203, 113, 0.8); }
+        }
+
+    :root {
+        --bg-color: #ffffff;
+        --text-color: #333333;
+    }
+    [data-theme="dark"] {
+        --bg-color: #121212;
+        --text-color: #ffffff;
+    }
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s, color 0.3s;
+        font-family: sans-serif;
+    }
         /* Base styles */
         * {
             margin: 0;
@@ -420,8 +449,9 @@ function checkSearxStatus(url, dotElement) {
         .drop-nav {
             position: absolute;
             top: 100%;
-            left: 0;
-            background-color: #292929;#2c3e50;
+            right: 0;
+			left: auto;
+            background-color: #292929;
             min-width: 200px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
             list-style: none;
@@ -701,7 +731,22 @@ function checkSearxStatus(url, dotElement) {
 	  text-wrap: nowrap;
 	}
 }
+    .ip-box {
+        font-family: monospace, sans-serif;
+        font-size: 1.2rem;
+        padding: 15px;
+        background: #f4f4f4;
+        border-radius: 5px;
+        display: inline-block;
+    }
 
-
+    #ip-address {
+        font-weight: normal;
+        color: #fff;
+    }
+    .XXVII-Bottom, #display-time, #ip-address {
+        font-size: x-small;
+    }
     </style>
+</body>
 </html>
