@@ -287,7 +287,7 @@ function updatePingForUrl(url, dotElement, pingElement) {
             console.log(`${url} is unreachable:`, err);
             dotElement.classList.add("offline");
             dotElement.classList.remove("online");
-            pingElement.textContent = "Error";
+            pingElement.textContent = "Offline";
             // Update dot color to match ping time
             updateDotColor(dotElement, "#666");
         });
