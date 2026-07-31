@@ -176,9 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     checkCopypartyStatus(hrefValue, dot, pingDisplay);
                 } else if (hostname === 'ai.xxvii.org') {
                     checkAIStatus(hrefValue, dot, pingDisplay);
-                } else {
-                    // Fallback configuration for any other subdomains
-                    checkCopypartyStatus(hrefValue, dot, pingDisplay);
                 }
 
             } catch (e) {
