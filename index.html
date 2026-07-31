@@ -107,158 +107,244 @@
     });
   }
 
-	
-    document.addEventListener("DOMContentLoaded", () => {
-        const targetDomain = "xxvii.org";
-        const allLinks = document.querySelectorAll("a");
-        const outputList = document.getElementById("domain-links-output");
+	<!-- Server Domain and Ping List -->
+document.addEventListener("DOMContentLoaded", () => {
+    const targetDomain = "xxvii.org";
+    const allLinks = document.querySelectorAll("a");
+    const outputList = document.getElementById("domain-links-output");
 
-        allLinks.forEach(link => {
-            const hrefValue = link.href;
+    allLinks.forEach(link => {
+        const hrefValue = link.href;
 
-            // Filter links that belong to your domain group
-            if (hrefValue.includes(targetDomain)) {
+        // Filter links that belong to your domain group
+        if (hrefValue.includes(targetDomain)) {
 
-                try {
-                    const urlObj = new URL(hrefValue);
-                    const hostname = urlObj.hostname;
+            try {
+                const urlObj = new URL(hrefValue);
+                const hostname = urlObj.hostname;
 
-                    //// Ignore the ai.xxvii.org subdomain entirely
-                    //if (hostname === 'ai.xxvii.org') {
-                    //    return;
-                    //}
-
-                    // Hide the main root domain homepage from the output list completely
-                    if (hostname === targetDomain && (urlObj.pathname === "/" || urlObj.pathname === "")) {
-                        return; // Skip appending
-                    }
-
-                    const listItem = document.createElement("li");
-                    listItem.className = "link-item";
-
-                    // Create the initial gray dot element
-                    const dot = document.createElement("span");
-                    dot.className = "status-dot";
-
-                    const anchor = document.createElement("a");
-                    anchor.href = hrefValue;
-                    anchor.textContent = hrefValue;
-                    anchor.target = "_blank";
-
-                    // Append dot first so it appears to the left of the URL
-                    listItem.appendChild(dot);
-                    listItem.appendChild(anchor);
-                    outputList.appendChild(listItem);
-
-                    // Run specific isolated status checkers matching individual subdomains
-                    if (hostname === 'searx.xxvii.org') {
-                        checkSearxStatus(hrefValue, dot);
-                    } else if (hostname === 'copyparty.xxvii.org') {
-                        checkCopypartyStatus(hrefValue, dot);
-                    } else {
-                        // Fallback configuration for any other subdomains
-                        checkCopypartyStatus(hrefValue, dot);
-                    }
-
-                } catch (e) {
-                    // Skips any non-http anchors (like tel:, mailto:, or anchor hashes)
+                // Hide the main root domain homepage from the output list completely
+                if (hostname === targetDomain && (urlObj.pathname === "/" || urlObj.pathname === "")) {
+                    return; // Skip appending
                 }
+
+                const listItem = document.createElement("li");
+                listItem.className = "link-item";
+
+                // Create the initial gray dot element
+                const dot = document.createElement("span");
+                dot.className = "status-dot";
+
+                // Create ping time display element
+                const pingDisplay = document.createElement("span");
+                pingDisplay.className = "ping-time";
+                pingDisplay.textContent = "0ms";
+
+                const anchor = document.createElement("a");
+                anchor.href = hrefValue;
+                anchor.textContent = hrefValue;
+                anchor.target = "_blank";
+
+                // Append elements in order: dot, ping, then URL
+                listItem.appendChild(dot);
+                listItem.appendChild(pingDisplay);
+                listItem.appendChild(anchor);
+                outputList.appendChild(listItem);
+
+                // Run specific isolated status checkers matching individual subdomains
+                if (hostname === 'searx.xxvii.org') {
+                    checkSearxStatus(hrefValue, dot, pingDisplay);
+                } else if (hostname === 'copyparty.xxvii.org') {
+                    checkCopypartyStatus(hrefValue, dot, pingDisplay);
+                } else if (hostname === 'ai.xxvii.org') {
+                    checkAIStatus(hrefValue, dot, pingDisplay);
+                } else {
+                    // Fallback configuration for any other subdomains
+                    checkCopypartyStatus(hrefValue, dot, pingDisplay);
+                }
+
+            } catch (e) {
+                // Skips any non-http anchors (like tel:, mailto:, or anchor hashes)
             }
-        });
-    });
-    // Individual function for Copyparty using HEAD request approach
-    function checkCopypartyStatus(url, dotElement) {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => {
-            controller.abort();
-            dotElement.classList.add("offline");
-            dotElement.classList.remove("online");
-        }, 5000);
-
-        const separator = url.endsWith('/') ? '' : '/';
-        const cacheBusterUrl = url + separator + '?t=' + Date.now();
-
-        fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
-            .then((response) => {
-                clearTimeout(timeoutId);
-                if (response.ok) {
-                    dotElement.classList.add("online");
-                    dotElement.classList.remove("offline");
-                } else {
-                    dotElement.classList.add("offline");
-                    dotElement.classList.remove("online");
-                }
-            })
-            .catch((err) => {
-                clearTimeout(timeoutId);
-                console.log(`${url} is unreachable:`, err);
-                dotElement.classList.add("offline");
-                dotElement.classList.remove("online");
-            });
-    }
-    // Individual function for Open WebUI using HEAD request approach with navigator.onLine check
-    function checkAiStatus(url, dotElement) {
-        // Quick preliminary check using navigator.onLine
-        if (!navigator.onLine) {
-            dotElement.classList.add("offline");
-            dotElement.classList.remove("online");
-            return;
         }
+    });
+});
 
-        const controller = new AbortController();
+// Individual function for Copyparty using HEAD request approach
+function checkCopypartyStatus(url, dotElement, pingElement) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+        controller.abort();
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+        pingElement.textContent = "Timeout";
+        // Update dot color to match ping time
+        updateDotColor(dotElement, "#666");
+    }, 5000);
 
-        const timeoutId = setTimeout(() => {
-            controller.abort();
-            dotElement.classList.add("offline");
-            dotElement.classList.remove("online");
-        }, 5000);
+    const separator = url.endsWith('/') ? '' : '/';
+    const cacheBusterUrl = url + separator + '?t=' + Date.now();
 
-        const separator = url.endsWith('/') ? '' : '/';
-        const cacheBusterUrl = url + separator + '?t=' + Date.now();
-
-        fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
-            .then((response) => {
-                clearTimeout(timeoutId);
-                if (response.ok) {
-                    dotElement.classList.add("online");
-                    dotElement.classList.remove("offline");
-                } else {
-                    dotElement.classList.add("offline");
-                    dotElement.classList.remove("online");
-                }
-            })
-            .catch((err) => {
-                clearTimeout(timeoutId);
-                console.log(`${url} is unreachable:`, err);
+    // Measure ping time
+    const startTime = performance.now();
+    
+    fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
+        .then((response) => {
+            clearTimeout(timeoutId);
+            const endTime = performance.now();
+            const pingTime = Math.round(endTime - startTime);
+            
+            updatePingDisplay(pingElement, dotElement, pingTime);
+            if (response.ok) {
+                dotElement.classList.add("online");
+                dotElement.classList.remove("offline");
+            } else {
                 dotElement.classList.add("offline");
                 dotElement.classList.remove("online");
-            });
-    }
-    // Individual function for SearXNG using its standalone Favicon
-    function checkSearxStatus(url, dotElement) {
-        const imgCheck = new Image();
-        const separator = url.endsWith('/') ? '' : '/';
-        imgCheck.src = url + separator + 'favicon.ico?t=' + Date.now();
-
-        const timeoutId = setTimeout(() => {
-            imgCheck.src = "";
+            }
+        })
+        .catch((err) => {
+            clearTimeout(timeoutId);
+            console.log(`${url} is unreachable:`, err);
             dotElement.classList.add("offline");
             dotElement.classList.remove("online");
-        }, 5000);
+            pingElement.textContent = "Offline";
+            // Update dot color to match ping time
+            updateDotColor(dotElement, "#666");
+        });
+}
 
-        imgCheck.onload = () => {
-            clearTimeout(timeoutId);
-            dotElement.classList.add("online");
-            dotElement.classList.remove("offline");
-        };
+// Individual function for Open WebUI using HEAD request approach with navigator.onLine check
+function checkAIStatus(url, dotElement, pingElement) {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+        controller.abort();
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+        pingElement.textContent = "Timeout";
+        // Update dot color to match ping time
+        updateDotColor(dotElement, "#666");
+    }, 5000);
 
-        imgCheck.onerror = () => {
+    const separator = url.endsWith('/') ? '' : '/';
+    const cacheBusterUrl = url + separator + '?t=' + Date.now();
+
+    // Measure ping time
+    const startTime = performance.now();
+    
+    fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
+        .then((response) => {
             clearTimeout(timeoutId);
+            const endTime = performance.now();
+            const pingTime = Math.round(endTime - startTime);
+            
+            updatePingDisplay(pingElement, dotElement, pingTime);
+            if (response.ok) {
+                dotElement.classList.add("online");
+                dotElement.classList.remove("offline");
+            } else {
+                dotElement.classList.add("offline");
+                dotElement.classList.remove("online");
+            }
+        })
+        .catch((err) => {
+            clearTimeout(timeoutId);
+            console.log(`${url} is unreachable:`, err);
             dotElement.classList.add("offline");
             dotElement.classList.remove("online");
-        };
-    }
+            pingElement.textContent = "Error";
+            // Update dot color to match ping time
+            updateDotColor(dotElement, "#666");
+        });
+}
 
+// Individual function for SearXNG using its standalone Favicon
+function checkSearxStatus(url, dotElement, pingElement) {
+    const startTime = performance.now();
+    
+    const imgCheck = new Image();
+    const separator = url.endsWith('/') ? '' : '/';
+    imgCheck.src = url + separator + 'favicon.ico?t=' + Date.now();
+
+    const timeoutId = setTimeout(() => {
+        imgCheck.src = "";
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+        pingElement.textContent = "Timeout";
+        // Update dot color to match ping time
+        updateDotColor(dotElement, "#666");
+    }, 5000);
+
+    imgCheck.onload = () => {
+        clearTimeout(timeoutId);
+        const endTime = performance.now();
+        const pingTime = Math.round(endTime - startTime);
+        
+        updatePingDisplay(pingElement, dotElement, pingTime);
+        dotElement.classList.add("online");
+        dotElement.classList.remove("offline");
+    };
+
+    imgCheck.onerror = () => {
+        clearTimeout(timeoutId);
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+        pingElement.textContent = "Error";
+        // Update dot color to match ping time
+        updateDotColor(dotElement, "#666");
+    };
+}
+
+// Helper function to update ping display with color coding
+function updatePingDisplay(pingElement, dotElement, pingTime) {
+    if (pingTime === 0 || pingTime === "Timeout" || pingTime === "Error") {
+        pingElement.textContent = pingTime;
+        pingElement.style.color = "#666";
+        // Also update the dot color
+        updateDotColor(dotElement, "#666");
+        return;
+    }
+    
+    pingElement.textContent = pingTime + "ms";
+    
+    if (pingTime < 100) {
+        pingElement.style.color = "#4CAF50"; // Green
+        updateDotColor(dotElement, "#4CAF50", true); // Green with glow
+    } else if (pingTime < 300) {
+        pingElement.style.color = "#FFC107"; // Yellow
+        updateDotColor(dotElement, "#FFC107", true); // Yellow with glow
+    } else {
+        pingElement.style.color = "#F44336"; // Red
+        updateDotColor(dotElement, "#F44336", true); // Red with glow
+    }
+}
+
+// Helper function to update dot color and glow effect
+function updateDotColor(dotElement, color, isGlowing = false) {
+    // Reset any existing glow classes
+    dotElement.classList.remove("online");
+    
+    if (isGlowing) {
+        // Set the background color and add glow class for the appropriate color
+        dotElement.style.backgroundColor = color;
+        
+        // Add the glowing effect by setting the correct shadow
+        if (color === "#4CAF50") { // Green
+            dotElement.style.boxShadow = "0 0 8px #2ecb71, 0 0 15px rgba(46, 203, 113, 0.6)";
+        } else if (color === "#FFC107") { // Yellow
+            dotElement.style.boxShadow = "0 0 8px #ffc107, 0 0 15px rgba(255, 193, 7, 0.6)";
+        } else if (color === "#F44336") { // Red
+            dotElement.style.boxShadow = "0 0 8px #f44336, 0 0 15px rgba(244, 67, 54, 0.6)";
+        } else {
+            dotElement.style.boxShadow = "none";
+        }
+    } else {
+        // Simple color change without glow
+        dotElement.style.backgroundColor = color;
+        dotElement.style.boxShadow = "none";
+    }
+}
+	// Date and Time Logic
         document.addEventListener('DOMContentLoaded', function() {
             function updateDateTime() {
                 const now = new Date();
@@ -284,7 +370,7 @@
             // Update every second
             setInterval(updateDateTime, 1000);
         });
-
+	// Cloudflare Status Logic
     async function checkCloudflareStatus() {
       const statusEl = document.getElementById('cloudflare-status');
       try {
@@ -295,12 +381,12 @@
         const description = data.status.description;
 
         if (indicator === 'none') {
-          statusEl.innerHTML = `Cloudflare Status: <span style="color: green;">All Systems Operational</span>`;
+          statusEl.innerHTML = `Cloudflare Status: <span class="cloudflare-operational" style="color: green;">All Systems Operational</span>`;
         } else {
-          statusEl.innerHTML = `Cloudflare Status: <a href="https://www.cloudflarestatus.com/" style="color: orange;">${description}</a>`;
+          statusEl.innerHTML = `Cloudflare Status: <a class="cloudflare-outage" href="https://www.cloudflarestatus.com/" style="color: orange;">${description}</a>`;
         }
       } catch (error) {
-        statusEl.innerHTML = `Cloudflare Status: <span style="color: red;">Failed to load</span>`;
+        statusEl.innerHTML = `Cloudflare Status: <span class="cloudflare-error" style="color: red;">Failed to load</span>`;
       }
     }
     checkCloudflareStatus();
@@ -353,17 +439,7 @@
 		transition: background-color 0.3s, box-shadow 0.3s;
 	}
 
-	/* Green Glowing State when Online */
-	.status-dot.online {
-		background-color: #2ecb71;
-		box-shadow: 0 0 8px #2ecb71, 0 0 15px rgba(46, 203, 113, 0.6);
-		animation: pulse-glow 2s infinite alternate;
-	}
 
-	@keyframes pulse-glow {
-		0% { box-shadow: 0 0 6px #2ecb71, 0 0 10px rgba(46, 203, 113, 0.4); }
-		100% { box-shadow: 0 0 12px #2ecb71, 0 0 20px rgba(46, 203, 113, 0.8); }
-	}
 
     :root {
         --bg-color: #ffffff;
@@ -517,6 +593,11 @@
 	.cloudflare-staus-nav {
 	  display: block;
 	  text-align: left;
+	}
+	
+	.cloudflare-outage:hover {
+	  background-color: unset;
+	  color: white !important;
 	}
 	
 	nav {
