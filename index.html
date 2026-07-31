@@ -54,9 +54,7 @@
 </div>
 
     <script>
-<!-- Darkmode Logic -->
-        const isDarkMode = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        console.log(isDarkMode()); // true or false
+
 <!-- Nav Logic -->
   const horizSlider = document.querySelector('nav');
   if (horizSlider) {
@@ -400,6 +398,14 @@ function updateDotColor(dotElement, color, isGlowing = false) {
         });
 </script>
 <style>
+    @media (prefers-color-scheme: dark) {
+        body {color: white !important;}
+        .drop-nav a {color: white !important; background: black !important;}
+        .dropdown a:hover {border-radius: 0px !important;}
+        .drop-nav a:hover {background-color: #000c !important;}
+        nav, .link-extractor-box {background: #990000b2 !important;}
+        #ip-address, .XXVII-Bottom {color: white !important;}
+    }
 	@media (prefers-color-scheme: light) {
 		body {color: black !important; background-color: hsl(0, 0%, 100%) !important;}
 		.drop-nav a {color: black !important; background: white !important;}
@@ -408,6 +414,8 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		nav, .link-extractor-box {background: #990000b2 !important;}
 		#ip-address, .XXVII-Bottom {color: black !important;}
 	}
+
+
 
 	.link-extractor-box {font-family: sans-serif; margin-top: 20px;}
 	.link-list {padding-left: 20px;}
@@ -441,6 +449,10 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 
 
     :root {
+        --bg-color: #121212;
+        --text-color: #ffffff;
+    }
+    [data-theme="light"] {
         --bg-color: #ffffff;
         --text-color: #333333;
     }
@@ -449,9 +461,8 @@ function updateDotColor(dotElement, color, isGlowing = false) {
         --text-color: #ffffff;
     }
     body {
-        background-color: var(--bg-color);
+        background-color: var(--bg-color) ;
         color: var(--text-color);
-        transition: background-color 0.3s, color 0.3s;
         font-family: sans-serif;
     }
 	/* Base styles */
@@ -468,7 +479,7 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		background-color: #292929;
 		margin: 0;
 		min-height: 100vh;
-		background-image: 
+		background-image:
 		linear-gradient(rgba(0, 0, 0, 0.15) 1px, transparent 1px),
 		linear-gradient(90deg, rgba(0, 0, 0, 0.15) 1px, transparent 1px);
 		background-size: 20px 20px;
@@ -588,17 +599,17 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 		margin-bottom: 2rem;
 	}*/
-	
+
 	.cloudflare-staus-nav {
 	  display: block;
 	  text-align: left;
 	}
-	
+
 	.cloudflare-outage:hover {
 	  background-color: unset;
 	  color: white !important;
 	}
-	
+
 	nav {
 	  background: #ff00004d;
 	  border-radius: 16px;
@@ -613,10 +624,10 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 	  display: flex;
 	  overflow-x: auto;
 	  white-space: nowrap;
-	  
+
 	  /* Added for drag experience */
 	  cursor: grab;
-	  user-select: none; 
+	  user-select: none;
 	  -webkit-user-select: none;
 
 	  /* Hide scrollbars */
@@ -628,12 +639,12 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 	nav:active {
 	  cursor: grabbing; /* Changes cursor while holding click */
 	}
-	
+
 	a:active {
 		cursor: grabbing;
 	}
-	
-	
+
+
 	nav a {
 		color: white; /*#2c3e50;*/
 		text-decoration: none;
@@ -657,7 +668,7 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 		margin-bottom: 2rem;
 	}*/
-	
+
 	.link-extractor-box {
 	  /*background: hwb(0 19.6% 0% / 0.3);*/
 	  border-radius: 16px;
@@ -668,7 +679,7 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 	  padding: 1rem 2rem;
 	  margin-bottom: 2rem;
 	}
-	
+
 	.link-extractor-box h3 {
 		color: white; /*#ad1f1f;*/
 		margin-bottom: 1rem;
@@ -709,15 +720,15 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 			flex-direction: column;
 			text-align: center;
 		}
-		
+
 		.main-nav {
 			margin-top: 1rem;
 		}
-		
+
 		.main-nav li {
 			display: inline-block;
 		}
-		
+
 		.drop-nav {
 			position: static;
 			opacity: 1;
@@ -729,7 +740,7 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 			overflow: hidden;
 			transition: max-height 0.3s ease;
 		}
-		
+
 		.dropdown:hover .drop-nav {
 			max-height: 200px;
 			overflow: auto;
@@ -760,7 +771,7 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		transform: translate(-2px,0) skew(0deg);
 	  }
 	  62%{
-		transform: translate(0,0) skew(5deg); 
+		transform: translate(0,0) skew(5deg);
 	  }
 	}
 
@@ -785,7 +796,7 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		transform: translate(-2px,2px);
 	  }
 	  62%{
-		transform: translate(13px,-1px) skew(-13deg); 
+		transform: translate(13px,-1px) skew(-13deg);
 	  }
 	}
 
@@ -803,7 +814,7 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		transform: translate(-2px,0);
 	  }
 	  62%{
-		transform: translate(-22px,5px) skew(21deg); 
+		transform: translate(-22px,5px) skew(21deg);
 	  }
 	}
 
@@ -825,10 +836,10 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		80% { transform: translate(3px, -3px); }
 		100% { transform: translate(0); }
 	}*/
-		
-		
-		
-	
+
+
+
+
 @media (min-width: 0px) and (max-width: 795px) {
 	nav {
 	  display: inherit;
