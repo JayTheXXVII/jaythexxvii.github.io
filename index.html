@@ -172,9 +172,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Individual function for Copyparty using HEAD request approach
 function checkCopypartyStatus(url, dotElement, pingElement) {
-    const controller = new AbortController();
+    // Set up periodic updates every 5 seconds
+    const updateInterval = setInterval(() => {
+        updatePingForUrl(url, dotElement, pingElement);
+    }, 5000);
+    
+    // Initial check
+    updatePingForUrl(url, dotElement, pingElement);
+    
+    // Store interval ID for potential cleanup
+    return updateInterval;
+}
+
+// Individual function for Open WebUI using HEAD request approach with navigator.onLine check
+function checkAIStatus(url, dotElement, pingElement) {
+    // Set up periodic updates every 5 seconds
+    const updateInterval = setInterval(() => {
+        updatePingForUrl(url, dotElement, pingElement);
+    }, 5000);
+    
+    // Initial check
+    updatePingForUrl(url, dotElement, pingElement);
+    
+    // Store interval ID for potential cleanup
+    return updateInterval;
+}
+
+// Individual function for SearXNG using its standalone Favicon
+function checkSearxStatus(url, dotElement, pingElement) {
+    // Set up periodic updates every 5 seconds
+    const updateInterval = setInterval(() => {
+        updateSearxPing(url, dotElement, pingElement);
+    }, 5000);
+    
+    // Initial check
+    updateSearxPing(url, dotElement, pingElement);
+    
+    // Store interval ID for potential cleanup
+    return updateInterval;
+}
+
+// Helper function to update ping for SearXNG specifically
+function updateSearxPing(url, dotElement, pingElement) {
+    const startTime = performance.now();
+    
+    const imgCheck = new Image();
+    const separator = url.endsWith('/') ? '' : '/';
+    imgCheck.src = url + separator + 'favicon.ico?t=' + Date.now();
+
     const timeoutId = setTimeout(() => {
-        controller.abort();
+        imgCheck.src = "";
         dotElement.classList.add("offline");
         dotElement.classList.remove("online");
         pingElement.textContent = "Timeout";
@@ -182,40 +229,28 @@ function checkCopypartyStatus(url, dotElement, pingElement) {
         updateDotColor(dotElement, "#666");
     }, 5000);
 
-    const separator = url.endsWith('/') ? '' : '/';
-    const cacheBusterUrl = url + separator + '?t=' + Date.now();
+    imgCheck.onload = () => {
+        clearTimeout(timeoutId);
+        const endTime = performance.now();
+        const pingTime = Math.round(endTime - startTime);
+        
+        updatePingDisplay(pingElement, dotElement, pingTime);
+        dotElement.classList.add("online");
+        dotElement.classList.remove("offline");
+    };
 
-    // Measure ping time
-    const startTime = performance.now();
-    
-    fetch(cacheBusterUrl, { method: 'HEAD', signal: controller.signal })
-        .then((response) => {
-            clearTimeout(timeoutId);
-            const endTime = performance.now();
-            const pingTime = Math.round(endTime - startTime);
-            
-            updatePingDisplay(pingElement, dotElement, pingTime);
-            if (response.ok) {
-                dotElement.classList.add("online");
-                dotElement.classList.remove("offline");
-            } else {
-                dotElement.classList.add("offline");
-                dotElement.classList.remove("online");
-            }
-        })
-        .catch((err) => {
-            clearTimeout(timeoutId);
-            console.log(`${url} is unreachable:`, err);
-            dotElement.classList.add("offline");
-            dotElement.classList.remove("online");
-            pingElement.textContent = "Offline";
-            // Update dot color to match ping time
-            updateDotColor(dotElement, "#666");
-        });
+    imgCheck.onerror = () => {
+        clearTimeout(timeoutId);
+        dotElement.classList.add("offline");
+        dotElement.classList.remove("online");
+        pingElement.textContent = "Error";
+        // Update dot color to match ping time
+        updateDotColor(dotElement, "#666");
+    };
 }
 
-// Individual function for Open WebUI using HEAD request approach with navigator.onLine check
-function checkAIStatus(url, dotElement, pingElement) {
+// Helper function to update ping for other URLs (HEAD requests)
+function updatePingForUrl(url, dotElement, pingElement) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
         controller.abort();
@@ -256,43 +291,6 @@ function checkAIStatus(url, dotElement, pingElement) {
             // Update dot color to match ping time
             updateDotColor(dotElement, "#666");
         });
-}
-
-// Individual function for SearXNG using its standalone Favicon
-function checkSearxStatus(url, dotElement, pingElement) {
-    const startTime = performance.now();
-    
-    const imgCheck = new Image();
-    const separator = url.endsWith('/') ? '' : '/';
-    imgCheck.src = url + separator + 'favicon.ico?t=' + Date.now();
-
-    const timeoutId = setTimeout(() => {
-        imgCheck.src = "";
-        dotElement.classList.add("offline");
-        dotElement.classList.remove("online");
-        pingElement.textContent = "Timeout";
-        // Update dot color to match ping time
-        updateDotColor(dotElement, "#666");
-    }, 5000);
-
-    imgCheck.onload = () => {
-        clearTimeout(timeoutId);
-        const endTime = performance.now();
-        const pingTime = Math.round(endTime - startTime);
-        
-        updatePingDisplay(pingElement, dotElement, pingTime);
-        dotElement.classList.add("online");
-        dotElement.classList.remove("offline");
-    };
-
-    imgCheck.onerror = () => {
-        clearTimeout(timeoutId);
-        dotElement.classList.add("offline");
-        dotElement.classList.remove("online");
-        pingElement.textContent = "Error";
-        // Update dot color to match ping time
-        updateDotColor(dotElement, "#666");
-    };
 }
 
 // Helper function to update ping display with color coding
@@ -344,6 +342,7 @@ function updateDotColor(dotElement, color, isGlowing = false) {
         dotElement.style.boxShadow = "none";
     }
 }
+
 	// Date and Time Logic
         document.addEventListener('DOMContentLoaded', function() {
             function updateDateTime() {
