@@ -112,6 +112,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const allLinks = document.querySelectorAll("a");
     const outputList = document.getElementById("domain-links-output");
 
+    // Improved homepage hiding logic
+    function isRootDomainHomepage(hostname, pathname) {
+        // Normalize hostname to lowercase for case-insensitive comparison
+        const normalizedHostname = hostname.toLowerCase();
+        
+        // Check if it's the target domain
+        if (normalizedHostname !== 'xxvii.org') {
+            return false;
+        }
+        
+        // Normalize pathname - remove trailing slashes
+        const normalizedPathname = pathname.replace(/\/+$/, '');
+        
+        // Handle various root path formats
+        const rootPaths = ['', '/', '/#', '/index.html', '/index.htm'];
+        
+        return rootPaths.includes(normalizedPathname);
+    }
+
     allLinks.forEach(link => {
         const hrefValue = link.href;
 
@@ -123,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const hostname = urlObj.hostname;
 
                 // Hide the main root domain homepage from the output list completely
-                if (hostname === targetDomain && (urlObj.pathname === "/" || urlObj.pathname === "" || urlObj.pathname === "/#")) {
+                if (isRootDomainHomepage(hostname, urlObj.pathname)) {
                     return; // Skip appending
                 }
 
