@@ -22,12 +22,9 @@
                         <li><a href="https://jaythexxvii.github.io/RevertX3">RevertX3</a></li>
                         <li><a href="https://jaythexxvii.github.io/RevertX2">RevertX2</a></li>
                         <li><a href="https://jaythexxvii.github.io/RevertX2-Legacy">RevertX2-Legacy</a></li>
-                        <li><a href="https://jaythexxvii.github.io/RevertX2-Test">RevertX2-Test</a></li>
                         <li><a href="https://jaythexxvii.github.io/RTL">RTL</a></li>
                         <li><a href="https://jaythexxvii.github.io/Red-Metro-For-Steam/">Red Metro</a></li>  
-                        <li><a href="https://jaythexxvii.github.io/Discord-old-icons/">Discord Old Icons</a></li>
                         <li><a href="https://jaythexxvii.github.io/unRefreshed/">unRefreshed</a></li>
-                        <li><a href="https://jaythexxvii.github.io/Tidalify/">Tidalify</a></li>
                         <li><a href="https://jaythexxvii.github.io/copyparty-client/">Copyparty-Client</a></li>
                     </ul>
                 </li>
@@ -77,10 +74,15 @@ frame.addEventListener("load", ev => {
 	@media (min-width: 0px) and (max-width: 795px) {.monitors_master {width: -webkit-fill-available;} .nav, .monitors, .list_monitor {max-width: -moz-available;}}
 	.monitors_master {width: -webkit-fill-available;}
 	.nav, .monitors, .list_monitor {margin-left: 2px; max-width: -moz-available; width: -webkit-fill-available;}
-	.monitors:has(.copyparty_monitor) {border-radius: 5px 5px 0px 0px !important;}
+	.monitors:has(.copyparty_monitor) {border-radius: 20px 20px 0px 0px !important;}
 	.monitors:has(.ai_monitor) {border-radius: 0px !important;}
 	.monitors:has(.searx_monitor) {border-radius: 0px 0px 20px 20px !important;}
 </style>
+
+	<script>
+        const isDarkMode = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        console.log(isDarkMode()); // true or false
+    </script>
 
 <!-- Nav Logic -->
 <script>
@@ -136,7 +138,46 @@ frame.addEventListener("load", ev => {
     checkCloudflareStatus();
     </script>
 
+	<script>
+		fetch('https://api.ipify.org?format=json')
+			.then(response => response.json())
+			.then(data => {
+				document.getElementById('ip-address').textContent = data.ip;
+			})
+			.catch(error => {
+				document.getElementById('ip-address').textContent = 'Unable to load IP';
+			});
+	</script>
+		<span class="display-time" id="display-time"></span> <span class="ip-address" id="ip-address">Loading...</span>
+		<div class="XXVII-Bottom" > Made By XXVII </div>
+	</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateDateTime() {
+                const now = new Date();
+                const dateTimeString = now.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
 
+                // Update the element with class "display-time"
+                const elements = document.querySelectorAll('.display-time');
+                elements.forEach(function(element) {
+                    element.textContent = dateTimeString;
+                });
+            }
+
+            // Update immediately
+            updateDateTime();
+
+            // Update every second
+            setInterval(updateDateTime, 1000);
+        });
+    </script>
 
 
 <style>
@@ -149,17 +190,12 @@ frame.addEventListener("load", ev => {
   .monitors {border: 10px solid white; background: white; box-shadow: 0 4px 10px white;}
   .copyparty_monitor, .searx_monitor, .ai_monitor {box-shadow: 0 4px 30px hwb(0 100% 0% / 0.3);}
 }
-</style>
 
-
-<style>
     .link-extractor-box {font-family: sans-serif; margin-top: 20px;}
     .link-list {padding-left: 20px;}
     .link-item {margin: 5px 0;}
 	/*.link-extractor-box {background: #ff00004d !important;}*/
-</style>
 
-<style>
   .link-extractor-box {
     font-family: sans-serif;
     margin-top: 20px;
@@ -283,7 +319,8 @@ frame.addEventListener("load", ev => {
         .drop-nav {
             position: absolute;
             top: 100%;
-            left: 0;
+            right: 0;
+			left: auto;
             background-color: #292929;#2c3e50;
             min-width: 200px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -557,7 +594,22 @@ frame.addEventListener("load", ev => {
 	  text-wrap: nowrap;
 	}
 }
+	.ip-box {
+        font-family: monospace, sans-serif;
+        font-size: 1.2rem;
+        padding: 15px;
+        background: #f4f4f4;
+        border-radius: 5px;
+        display: inline-block;
+    }
 
+    #ip-address {
+        font-weight: normal;
+        color: #fff;
+    }
+    .XXVII-Bottom, #display-time, #ip-address {
+        font-size: x-small;
+    }
 
     </style>
 </html>
