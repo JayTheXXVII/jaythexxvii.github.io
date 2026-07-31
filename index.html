@@ -48,7 +48,8 @@
 	<div id="cloudflare-status">Cloudflare Status: Checking...</div>
 	<span class="display-time" id="display-time"></span> <span class="ip-address" id="ip-address">Loading...</span>
 		<div class="XXVII-Bottom" >
-			Made By XXVII
+			<span class="made-by-xxvii" > Made By XXVII</span>
+			<span class="with-love" ></span>
 		</div>
 	</nav>
 </div>
@@ -402,7 +403,7 @@ function updateDotColor(dotElement, color, isGlowing = false) {
         body {color: white !important;}
         .drop-nav a {color: white !important;}
         .dropdown a:hover {border-radius: 0px !important;}
-        .drop-nav a:hover {background-color: #000c !important;}
+        .drop-nav a:hover {background-color: #1a1a1a !important;}
         nav, .link-extractor-box {background: #990000b2 !important;}
         #ip-address, .XXVII-Bottom {color: white !important;}
     }
@@ -415,8 +416,10 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		#ip-address, .XXVII-Bottom {color: black !important;}
 	}
 
-
-
+	.made-by-xxvii {padding-right: 4.5rem;}
+	.with-love:hover::after {content: "With Love";}
+	.with-love::marker {color: transparent;}
+	.with-love {min-width: 40px; display: inline flow-root list-item;}
 	.link-extractor-box {font-family: sans-serif; margin-top: 20px;}
 	.link-list {padding-left: 20px;}
 	.link-item {margin: 5px 0;}
@@ -445,8 +448,6 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		display: inline-block;
 		transition: background-color 0.3s, box-shadow 0.3s;
 	}
-
-
 
     :root {
         --bg-color: #121212;
