@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const hostname = urlObj.hostname;
 
                 // Hide the main root domain homepage from the output list completely
-                if (hostname === targetDomain && (urlObj.pathname === "/" || urlObj.pathname === "")) {
+                if (hostname === targetDomain && (urlObj.pathname === "/" || urlObj.pathname === "" || urlObj.pathname === "#")) {
                     return; // Skip appending
                 }
 
