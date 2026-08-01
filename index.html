@@ -106,7 +106,7 @@
     });
   }
 
-	<!-- Server Domain and Ping List -->
+<!-- Server Domain and Ping List -->
 document.addEventListener("DOMContentLoaded", () => {
     const targetDomain = "xxvii.org";
     const allLinks = document.querySelectorAll("a");
@@ -176,6 +176,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     checkCopypartyStatus(hrefValue, dot, pingDisplay);
                 } else if (hostname === 'ai.xxvii.org') {
                     checkAIStatus(hrefValue, dot, pingDisplay);
+                } else {
+                    // Fallback configuration for any other subdomains
+                    checkCopypartyStatus(hrefValue, dot, pingDisplay);
                 }
 
             } catch (e) {
@@ -320,7 +323,7 @@ function updatePingDisplay(pingElement, dotElement, pingTime) {
     
     pingElement.textContent = pingTime + "ms";
     
-    if (pingTime < 150) {
+    if (pingTime < 100) {
         pingElement.style.color = "#4CAF50"; // Green
         updateDotColor(dotElement, "#4CAF50", true); // Green with glow
     } else if (pingTime < 300) {
