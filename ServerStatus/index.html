@@ -181,17 +181,18 @@
 		#ip-address, .XXVII-Bottom {color: white !important;}
 	}
 	@media (prefers-color-scheme: light) {
-		body {color: black !important; background-color: hsl(0, 0%, 100%) !important;}
+		body {background-color: hsl(0, 0%, 100%) !important;}
+	
 		.drop-nav a {color: black !important; background: white !important;}
 		.dropdown a:hover {border-radius: 0px !important;}
 		.drop-nav a:hover {background-color: #fffc !important;}
 		nav, .link-extractor-box {background: #990000b2 !important;}
-		#ip-address, .XXVII-Bottom {color: black !important;}
+		.monitors {border: 10px solid white !important; background: white !important; box-shadow: 0 4px 10px white !important;}
+		.copyparty_monitor, .searx_monitor, .ai_monitor {box-shadow: unset !important;}
 	}
 
-	.copyparty_monitor, .searx_monitor, .ai_monitor {box-shadow: 0 4px 30px hwb(0 0% 100% / 0.3);}
 	.copyparty_monitor, .searx_monitor, .ai_monitor {max-width: 800px; width: -webkit-fill-available;}
-	.monitors {inline-size: 800px; border: 10px solid hsl(225, 7.1%, 13%); background: #1f2024; box-shadow: 0 4px 10px black; max-width: -moz-available;}
+	.monitors {inline-size: 800px; border: 10px solid #1a1b1e; background: #1a1b1e; box-shadow: 0 4px 10px #1a1b1e; max-width: -moz-available;}
 	.monitors_master {width: -webkit-fill-available; display: inline-flex; margin-bottom: 2rem;}
 	.list_monitor {display: list-item; list-style: none;}
 	@media (min-width: 0px) and (max-width: 795px) {.monitors_master {width: -webkit-fill-available;} .nav, .monitors, .list_monitor {max-width: -moz-available;}}
