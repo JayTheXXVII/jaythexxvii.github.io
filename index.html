@@ -53,6 +53,9 @@
 </div>
 
     <script>
+<!-- Darkmode Logic -->
+	const isDarkMode = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	console.log(isDarkMode()); // true or false
 
 <!-- Nav Logic -->
   const horizSlider = document.querySelector('nav');
@@ -458,19 +461,17 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 <style>
     @media (prefers-color-scheme: dark) {
         body {color: white !important;}
-        .drop-nav a {color: white !important;}
+        .drop-nav a, #ip-address, .XXVII-Bottom {color: white !important;}
         .dropdown a:hover {border-radius: 0px !important;}
         .drop-nav a:hover {background-color: #1a1a1a !important;}
         nav, .link-extractor-box {background: #ff00004d !important;}
-        #ip-address, .XXVII-Bottom {color: white !important;}
     }
 	@media (prefers-color-scheme: light) {
-		body {color: black !important; background-color: hsl(0, 0%, 100%) !important;}
+		body {background-color: hsl(0, 0%, 100%) !important;}
 		.drop-nav a {color: black !important; background: white !important;}
 		.dropdown a:hover {border-radius: 0px !important;}
 		.drop-nav a:hover {background-color: #fffc !important;}
 		nav, .link-extractor-box {background: #990000b2 !important;}
-		#ip-address, .XXVII-Bottom {color: black !important;}
 	}
 	.link-item:has([href="https://www.xxvii.org/#"]) {display: none;}
 	.made-by-xxvii {padding-right: 4.5rem;}
