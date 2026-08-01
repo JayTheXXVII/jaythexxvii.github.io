@@ -112,23 +112,62 @@ document.addEventListener("DOMContentLoaded", () => {
     const allLinks = document.querySelectorAll("a");
     const outputList = document.getElementById("domain-links-output");
 
-    // Improved homepage hiding logic
-    function isRootDomainHomepage(hostname, pathname) {
-        // Normalize hostname to lowercase for case-insensitive comparison
-        const normalizedHostname = hostname.toLowerCase();
-        
-        // Check if it's the target domain
-        if (normalizedHostname !== 'xxvii.org') {
+    // Ultimate homepage detection function - handles all edge cases
+    function isHomepageUrl(hrefValue) {
+        // Handle case where hrefValue might be malformed or not a URL
+        if (!hrefValue || typeof hrefValue !== 'string') {
             return false;
         }
+
+        // Normalize the URL for consistent comparison
+        const normalizedHref = hrefValue.toLowerCase();
         
-        // Normalize pathname - remove trailing slashes
-        const normalizedPathname = pathname.replace(/\/+$/, '');
+        // Check for exact homepage patterns (both http and https)
+        const homepagePatterns = [
+            'http://xxvii.org',
+            'https://xxvii.org',
+            'http://xxvii.org/',
+            'https://xxvii.org/',
+            'http://xxvii.org/#',
+            'https://xxvii.org/#',
+            'http://xxvii.org/index.html',
+            'https://xxvii.org/index.html',
+            'http://xxvii.org/index.htm',
+            'https://xxvii.org/index.htm',
+            'http://xxvii.org/default.html',
+            'https://xxvii.org/default.html',
+            'http://xxvii.org/home.html',
+            'https://xxvii.org/home.html'
+        ];
         
-        // Handle various root path formats
-        const rootPaths = ['', '/', '/#', '/index.html', '/index.htm'];
+        // Check exact matches first
+        if (homepagePatterns.includes(normalizedHref)) {
+            return true;
+        }
         
-        return rootPaths.includes(normalizedPathname);
+        // Handle URLs that have homepage patterns but with additional query params or fragments
+        const baseHomepagePatterns = [
+            'http://xxvii.org',
+            'https://xxvii.org'
+        ];
+        
+        for (const pattern of baseHomepagePatterns) {
+            if (normalizedHref.startsWith(pattern)) {
+                const remaining = normalizedHref.substring(pattern.length);
+                // If it's exactly the pattern or ends with /, #, or query/fragment
+                if (remaining === '' || remaining === '/' || remaining.startsWith('#') || 
+                    remaining.startsWith('?')) {
+                    return true;
+                }
+                // If it's followed by index.html, index.htm, etc.
+                if (remaining.startsWith('/index.html') || remaining.startsWith('/index.htm') ||
+                    remaining.startsWith('/default.html') || remaining.startsWith('/home.html')) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 
     allLinks.forEach(link => {
@@ -136,15 +175,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Filter links that belong to your domain group
         if (hrefValue.includes(targetDomain)) {
-
             try {
-                const urlObj = new URL(hrefValue);
-                const hostname = urlObj.hostname;
-
-                // Hide the main root domain homepage from the output list completely
-                if (isRootDomainHomepage(hostname, urlObj.pathname)) {
+                // Use the ultimate homepage detection function
+                if (isHomepageUrl(hrefValue)) {
+                    console.log("Skipping homepage:", hrefValue);
                     return; // Skip appending
                 }
+
+                const urlObj = new URL(hrefValue);
+                const hostname = urlObj.hostname;
 
                 const listItem = document.createElement("li");
                 listItem.className = "link-item";
@@ -182,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
             } catch (e) {
+                console.log("Error processing link:", e);
                 // Skips any non-http anchors (like tel:, mailto:, or anchor hashes)
             }
         }
