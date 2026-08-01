@@ -361,7 +361,7 @@ function updatePingDisplay(pingElement, dotElement, pingTime) {
     
     pingElement.textContent = pingTime + "ms";
     
-    if (pingTime < 100) {
+    if (pingTime < 150) {
         pingElement.style.color = "#4CAF50"; // Green
         updateDotColor(dotElement, "#4CAF50", true); // Green with glow
     } else if (pingTime < 300) {
