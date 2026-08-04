@@ -1,3 +1,7 @@
 .link-navbar {
   justify-content: center;
 }
+
+.RTL-Header-Text, .RevertX3-Header-Text {
+	padding: 0.5rem 0.5rem;
+}
