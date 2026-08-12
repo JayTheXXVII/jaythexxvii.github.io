@@ -6,6 +6,6 @@
 	padding: 0.5rem 0.5rem;
 }
 
-.nav, .main-header, .link-navbar, .link-extractor-box, .cloudflare-staus-nav {
+.nav, .main-header, .link-navbar, .link-extractor-box, .cloudflare-staus-nav, .main-content-nav {
 	box-shadow: #111 0px 0px 20px !important;
 }
