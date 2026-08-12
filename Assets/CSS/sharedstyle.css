@@ -1,7 +1,11 @@
 .link-navbar {
-  justify-content: center;
+	justify-content: center;
 }
 
 .RTL-Header-Text, .RevertX3-Header-Text, .Copyparty-Client-Header-Text {
 	padding: 0.5rem 0.5rem;
+}
+
+.nav, .main-header, .link-navbar, .link-extractor-box, .cloudflare-staus-nav {
+	box-shadow: #111 0px 0px 20px !important;
 }
