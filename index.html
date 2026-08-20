@@ -40,9 +40,10 @@
 		<a href="https://jaythexxvii.github.io/ServerStatus">Server Status</a>
 	</nav>
 		<div class="link-extractor-box">
-			<h3>Internal Domain Links:</h3>
 			<ol id="domain-links-output" class="link-list"></ol>
-		</div>
+</div>
+
+
 	<nav class="cloudflare-staus-nav" >
 	<div id="cloudflare-status">Cloudflare Status: Checking...</div>
 	<span class="display-time" id="display-time"></span> <span class="ip-address" id="ip-address">Loading...</span>
@@ -50,9 +51,72 @@
 			<span class="made-by-xxvii" > Made By XXVII</span>
 			<span class="with-love" ></span>
 		</div>
-	</nav>
-</div>
-    <script>
+<div class="card">
+  <div class="icon">
+    <img src="https://pbs.twimg.com/profile_images/808180587605331969/u-CULTwl_400x400.jpg" id="favicon" href="mc.xxvii.org" ></div >
+  <div id="rest">Loading ...</div>
+</div >
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<style> 
+  .card {display: flex; position: absolute; right: 50px; top: 15px; text-align: center;}
+  .icon {padding-right: 10px;}
+  .icon:has([src="https://pbs.twimg.com/profile_images/808180587605331969/u-CULTwl_400x400.jpg"]) {display: none;}
+</style>
+<script>
+// MC Server
+// Ensure jQuery is available before running the script
+$(document).ready(function() {
+    
+    // Variable to hold the interval ID if needed later (good practice)
+    let intervalId;
+
+    // The function that performs the API fetch and updates the UI
+    function updateServerStatus() {
+        var url = "https://api.minetools.eu/ping/mc.xxvii.org";
+
+        $.getJSON(url, function(r) {
+            // 1. Check for error condition
+            if (r.error) {
+                $('#rest').html('Server Offline');
+            } else {
+                // 2. Successful data update
+                var pl = '';
+                if (r.players.sample.length > 0) {
+                    pl = '<br>OP: ' + r.players.sample[0].name;
+                }
+                $('#rest').html(r.description.replace(/§(.+?)/gi, '') + '<br><b style="color: #FFD700;">Players Online:</b> ' + r.players.online + pl);
+                $('#favicon').attr('src', r.favicon);
+            }
+
+            // 3. The required conditional hiding logic
+            const restElement = $('#rest');
+            
+            // Check if the visible text content contains "Server Offline"
+            if (restElement.text().includes('Server Offline')) {
+                // If offline, hide the element completely
+                restElement.hide(); 
+                // Optional: If you want to hide the entire card when offline:
+                // $('.card').hide();
+            } else {
+                // If online, ensure the element is visible
+                restElement.show();
+            }
+
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+             // Handle network or fetch errors
+             $('#rest').html('Server Offline (Connection Error)');
+             $('#rest').show();
+        });
+    }
+
+    // 1. Run the status check immediately on page load
+    updateServerStatus();
+
+    // 2. Set the interval to run the check every 5000 milliseconds (5 seconds)
+    intervalId = setInterval(updateServerStatus, 5000);
+});
+
+	
 <!-- Darkmode Logic -->
 	const isDarkMode = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 	console.log(isDarkMode()); // true or false
@@ -816,6 +880,15 @@ function updateDotColor(dotElement, color, isGlowing = false) {
 		.logo {display: none;}
 		.link-list {padding-left: initial;}
 		.ping-time {font-size: x-small;}
+		
+		.card {
+		  display: flex;
+		  position: absolute;
+		  right: -200px;
+		  top: 15px;
+		  text-align: center;
+		  padding-right: 25px;
+		}
 	}
 
 
